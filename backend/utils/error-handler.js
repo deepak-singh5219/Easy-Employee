@@ -24,11 +24,15 @@ class ErrorHandler extends Error{
         return new ErrorHandler(message,404);
     }
 
-    static unAuthorized(message='Unauthorized Access')
+    static unAuthorized = (message='Unauthorized Access')=>
     {
         return new ErrorHandler(message,401);
     }
     
+    static notAllowed = (message='Not Allowed')=>
+    {
+        return new ErrorHandler(message,403);
+    }
 
 
 }

@@ -2,7 +2,7 @@ const tokenService = require('../services/token-service');
 const userService = require('../services/user-service');
 const ErrorHandler = require('../utils/error-handler');
 const {TokenExpiredError} = require('jsonwebtoken');
-const { compareSync } = require('bcrypt');
+
 const auth = async (req,res,next) =>
 {
     const {accessToken:accessTokenFromCookie,refreshToken:refreshTokenFromCookie}  = req.cookies;
@@ -53,5 +53,18 @@ const auth = async (req,res,next) =>
     next();
 }
 
+const authRole = (role) =>
+{
+    return (req,res,next)=>
+    {
+        if(req.user.type!=role)
+            return next(ErrorHandler.notAllowed());
+        next();
+    }
+}
 
-module.exports = auth;
+
+module.exports ={
+    auth,
+    authRole
+}
