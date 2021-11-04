@@ -1,0 +1,26 @@
+{
+  "name": "Target Management",
+  "version": "1.0.0",
+  "description": "A system for company to manage their teams, employee and targets",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server",
+    "start": "npm server"
+  },
+  "keywords": [],
+  "author": "Social Codia",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3",
+    "nodemailer": "^6.7.0",
+    "validator": "^13.7.0"
+  }
+}

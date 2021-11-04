@@ -1,0 +1,65 @@
+.cusCard{
+  background-color: #1D1D1D !important;
+  width: 100%;
+  border-radius: 20px !important;
+}
+.cusCardWrapper{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+}
+.prefix{
+  color:#0077FF !important;
+}
+
+.bold{
+  font-weight: bold !important;
+}
+
+.forgotPasswordLink{
+  text-align: right !important;
+  margin-top: -15px;
+}
+
+input{
+  color: white !important;
+}
+
+.secondryText{
+  color:#C4C5C5;
+}
+
+.btn{
+  background-color: #0077FF !important;
+  width: 80%;
+  border-radius: 20px !important;
+}
+body{
+  height: 100vh;
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+}
+/* 
+body{
+  height: 1vh;
+  background-color: red;
+} */
+
+.loader {
+  border: 12px solid #282222; 
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  background-image: url(source/img/socialcodia.png);
+  background-size: cover;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  50% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
