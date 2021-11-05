@@ -9,7 +9,6 @@ class LeaderDto{
     address;
     constructor(user)
     {
-        console.log(user)
         this.id = user._id,
         this.name = user.name,
         this.username = user.username,

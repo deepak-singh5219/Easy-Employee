@@ -7,8 +7,12 @@ const asyncMiddleware = require('../middlewares/async-middleware');
 
 router.post('/user',auth,authRole('admin'),upload.single('profile'),asyncMiddleware(userController.createUser));
 router.patch('/user',auth,authRole('admin'),upload.single('profile'),asyncMiddleware(userController.createUser));
-router.get('/employees',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployees));
-router.get('/employee/:id',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployee));
+router.get('/employees',auth,authRole('admin'),asyncMiddleware(userController.getUsers));
+router.get('/admins',auth,authRole('admin'),asyncMiddleware(userController.getUsers));
+router.get('/leaders',auth,authRole('admin'),asyncMiddleware(userController.getUsers));
+router.get('/employee/:id',auth,authRole('admin'),asyncMiddleware(userController.getUser));
+router.get('/admin/:id',auth,authRole('admin'),asyncMiddleware(userController.getUser));
+router.get('/leader/:id',auth,authRole('admin'),asyncMiddleware(userController.getUser));
 router.post('/team',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.createTeam));
 router.patch('/team/:id',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.updateTeam));
 router.get('/team/:id',auth,authRole('admin'),asyncMiddleware(teamController.getTeam));
