@@ -1,4 +1,4 @@
-const mongoose = require('mongosose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
@@ -9,6 +9,11 @@ const teamScheam = new Schema({
         unique:true,
         require:true,
         trim:true
+    },
+    description:{
+        type:String,
+        required:false,
+        default:'This team does not have any description'
     },
     image:{
         type:String,
@@ -21,6 +26,7 @@ const teamScheam = new Schema({
     },
     status:{
         type:String,
+        required:false,
         enum:['active','expired','banned','deleted'],
         default:'active'
     }
@@ -29,4 +35,4 @@ const teamScheam = new Schema({
     timestamps:true
 });
 
-module.exports = new mongoose.module('Team',teamScheam,'teams');
+module.exports = new mongoose.model('Team',teamScheam,'teams');

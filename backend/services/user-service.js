@@ -13,6 +13,11 @@ class UserService {
         return await UserModel.findOne(filter);
     }
 
+    findUsers = async (filter) =>
+    {
+        return await UserModel.find(filter);
+    }
+
     verifyPassword = async (password,hashPassword) =>
     {
         return await bcrypt.compare(password,hashPassword);

@@ -4,8 +4,10 @@ const storageEngine = multer.diskStorage({
     destination:(req,file,cb) =>
     {
         console.log('Multer Storage Engine');
-        if(file.fieldname==='image')
+        if(file.fieldname==='profile')
             cb(null,'./storage/images/profile/')
+        else if(file.fieldname==='image')
+            cb(null,'./storage/images/teams');
         else
             cb(null,false);
     },

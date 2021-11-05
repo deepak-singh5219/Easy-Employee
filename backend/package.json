@@ -1,5 +1,5 @@
 {
-  "name": "Target Management",
+  "name": "targetmanagement",
   "version": "1.0.0",
   "description": "A system for company to manage their teams, employee and targets",
   "main": "server.js",
