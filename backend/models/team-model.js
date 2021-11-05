@@ -27,7 +27,6 @@ const teamScheam = new Schema({
     },
     status:{
         type:String,
-        required:false,
         enum:['active','expired','banned','deleted'],
         default:'active'
     }

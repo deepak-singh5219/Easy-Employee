@@ -5,6 +5,8 @@ class UserService {
 
     createUser = async user => await UserModel.create(user);
 
+    findCount = async filter => await UserModel.find(filter).countDocuments();
+
     findUser = async filter => await UserModel.findOne(filter);
 
     findUsers = async filter => await UserModel.find(filter).populate('team');

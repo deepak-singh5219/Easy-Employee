@@ -36,7 +36,7 @@ const userSchema = new Schema({
     },
     type:{
         type:String,
-        enum:['admin','employee','team']
+        enum:['admin','employee','leader']
     },
     status:{
         type:String,

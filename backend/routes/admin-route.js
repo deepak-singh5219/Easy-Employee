@@ -10,9 +10,10 @@ router.patch('/user',auth,authRole('admin'),upload.single('profile'),asyncMiddle
 router.get('/employees',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployees));
 router.get('/employee/:id',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployee));
 router.post('/team',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.createTeam));
-router.patch('/team',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.updateTeam));
+router.patch('/team/:id',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.updateTeam));
 router.get('/team/:id',auth,authRole('admin'),asyncMiddleware(teamController.getTeam));
 router.get('/teams',auth,authRole('admin'),asyncMiddleware(teamController.getTeams));
+router.get('/counts',auth,authRole('admin'),asyncMiddleware(teamController.getCounts));
 
 
 module.exports = router;
