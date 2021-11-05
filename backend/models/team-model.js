@@ -20,8 +20,9 @@ const teamScheam = new Schema({
         required:false,
         default:'team.png'
     },
-    admin:{
+    leader:{
         type:Schema.Types.ObjectId,
+        ref:'User',
         required:false
     },
     status:{

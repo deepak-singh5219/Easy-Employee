@@ -25,7 +25,7 @@ class AuthController {
         if(!isValid) return next(ErrorHandler.unAuthorized('Invalid Password'));
         const payload = {
             _id,
-            email,
+            email:dbEmail,
             username,
             type
         }

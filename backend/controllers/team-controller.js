@@ -20,6 +20,14 @@ class TeamController {
         res.json({success:true,message:'Team Has Been Created',team:new TeamDto(teamResp)});
     }
 
+    getTeams = async (req,res,next) =>
+    {
+        const teams = await teamService.getTeams({});
+        if(!teams) return next(ErrorHandler.notFound('No Team Found'));
+        const data = teams.map((o)=> new TeamDto(o));
+        res.json({success:true,message:'Team Found',data})
+    }
+
 }
 
 module.exports = new TeamController();

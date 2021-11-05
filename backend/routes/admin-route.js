@@ -9,6 +9,7 @@ router.post('/user',auth,authRole('admin'),upload.single('profile'),asyncMiddlew
 router.get('/employees',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployees));
 router.get('/employee/:id',auth,authRole('admin'),upload.none(),asyncMiddleware(userController.getEmployee));
 router.post('/team',auth,authRole('admin'),upload.single('image'),asyncMiddleware(teamController.createTeam));
+router.get('/teams',auth,authRole('admin'),asyncMiddleware(teamController.getTeams));
 
 
 module.exports = router;

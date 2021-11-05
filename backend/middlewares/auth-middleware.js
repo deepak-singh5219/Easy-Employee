@@ -46,7 +46,7 @@ const auth = async (req,res,next) =>
                     maxAge:1000*60*60*24*30,
                     httpOnly:true
                 })
-                console.log('Token Generate Success');
+                console.log('Token Generated Success');
                     return next();
             }
         else

@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 
 class UserService {
 
-    createUser = async (user) => await UserModel.create(user);
+    createUser = async user => await UserModel.create(user);
 
     findUser = async filter => await UserModel.findOne(filter);
 
-    findUsers = async filter => await UserModel.find(filter);
+    findUsers = async filter => await UserModel.find(filter).populate('team');
 
     verifyPassword = async (password,hashPassword) => await bcrypt.compare(password,hashPassword);
 

@@ -17,14 +17,12 @@ class TokenService {
 
     storeRefreshToken = async (userId,token) =>
     {
-        
         const tokens = {token}
         const isExist = await TokenModel.exists({userId})
         if(!isExist)
             return await TokenModel.create({userId,tokens})
         else
             return await TokenModel.findOneAndUpdate({userId},{$push:{tokens}});
-        
     }
 
     removeRefreshToken = async (userId,token) =>

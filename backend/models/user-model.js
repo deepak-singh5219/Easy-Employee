@@ -44,8 +44,8 @@ const userSchema = new Schema({
         default:'active'
     },
     team:{
-        type:Number,
-        default:0
+        type:Schema.Types.ObjectId,
+        ref:'Team'
     },
     image:{
         type:String,
