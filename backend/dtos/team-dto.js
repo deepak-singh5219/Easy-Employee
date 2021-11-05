@@ -1,4 +1,4 @@
-const UserDto = require('./user-dto');
+const LeaderDto = require('./leader-dto');
 class TeamDto {
     id;
     name;
@@ -17,7 +17,7 @@ class TeamDto {
         this.status = team.status;
         console.log(team.leader)
         console.log(team)
-        this.leader = team.leader && team.leader.name && new UserDto(team.leader);
+        this.leader = team.leader && team.leader.name && new LeaderDto(team.leader);
     }
 
 }

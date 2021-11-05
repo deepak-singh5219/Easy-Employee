@@ -20,12 +20,25 @@ class TeamController {
         res.json({success:true,message:'Team Has Been Created',team:new TeamDto(teamResp)});
     }
 
+    updateTeam = async (req,res,next) =>
+    {
+        
+    }
+
     getTeams = async (req,res,next) =>
     {
-        const teams = await teamService.getTeams({});
+        const teams = await teamService.findTeams({});
         if(!teams) return next(ErrorHandler.notFound('No Team Found'));
         const data = teams.map((o)=> new TeamDto(o));
         res.json({success:true,message:'Team Found',data})
+    }
+
+    getTeam = async (req,res,next) =>
+    {
+        const {id} = req.params;
+        const team = await teamService.findTeam({_id:id});
+        if(!team) return next(ErrorHandler.notFound('No Team Found'));
+        res.json({success:true,message:'Team Found',data:new TeamDto(team)})
     }
 
 }
