@@ -2,10 +2,7 @@ const TeamModel = require('../models/team-model');
 
 class TeamService{
 
-    createTeam = async (team) =>
-    {
-        return await TeamModel.create(team);
-    }
+    createTeam = async team => await TeamModel.create(team);
 
 }
 

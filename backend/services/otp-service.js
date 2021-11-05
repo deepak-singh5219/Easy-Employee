@@ -3,20 +3,11 @@ const OtpModel = require('../models/otp-model');
 
 class OtpService {
 
-    generateOtp = () =>
-    {
-        return crypto.randomInt(100000,999999);
-    }
+    generateOtp = () => crypto.randomInt(100000,999999);
 
-    storeOtp = async (userId,otp,type) =>
-    {
-        return await OtpModel.create({userId,otp,type});
-    }
+    storeOtp = async (userId,otp,type) => await OtpModel.create({userId,otp,type});
 
-    removeOtp = async (userId) =>
-    {
-        return await OtpModel.deleteOne({userId});
-    }
+    removeOtp = async userId => await OtpModel.deleteOne({userId});
 
     verifyOtp = async (userId,otp,type) =>
     {

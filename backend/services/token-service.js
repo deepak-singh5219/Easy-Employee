@@ -33,25 +33,13 @@ class TokenService {
         return await TokenModel.updateOne({userId,'tokens.token':token},{$pull:{tokens}});
     }
 
-    verifyRefreshToken =  (refreshToken) =>
-    {
-        return jwt.verify(refreshToken,refreshTokenSecretKey);
-    }
+    verifyRefreshToken =  refreshToken => jwt.verify(refreshToken,refreshTokenSecretKey);
 
-    verifyAccessToken = (accessToken) =>
-    {
-        return jwt.verify(accessToken,accessTokenSecretKey);
-    }
+    verifyAccessToken = accessToken => jwt.verify(accessToken,accessTokenSecretKey);
 
-    findRefreshToken = async (userId,token) =>
-    {
-        return await TokenModel.findOne({userId,'tokens.token':token}).select({tokens:{$elemMatch:{token}}});
-    }
+    findRefreshToken = async (userId,token) => await TokenModel.findOne({userId,'tokens.token':token}).select({tokens:{$elemMatch:{token}}});
 
-    updateRefreshToken = async (userId,oldToken,token) =>
-    {
-        return await TokenModel.findOneAndUpdate({userId,'tokens.token':oldToken},{$set:{'tokens.$.token':token}});
-    }
+    updateRefreshToken = async (userId,oldToken,token) => await TokenModel.findOneAndUpdate({userId,'tokens.token':oldToken},{$set:{'tokens.$.token':token}});
 
 }
 
