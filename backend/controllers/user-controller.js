@@ -41,7 +41,6 @@ class UserController {
     {
         const {id} = req.params;
         const type = req.path.replace(id,'').replace('/','').replace('/','');
-        console.log({type})
         if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest(`Invalid ${type.charAt(0).toUpperCase() + type.slice(1).replace(' ','')} Id`));
         const emp = await userService.findUser({_id:id,type});
         if(!emp) return next(ErrorHandler.notFound(`No ${type.charAt(0).toUpperCase() + type.slice(1).replace(' ','')} Found`));
