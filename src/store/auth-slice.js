@@ -13,11 +13,11 @@ export const authSlice = createSlice({
         setAuth:(state,action)=>
         {
             const user = action.payload;
-            state.user = user;
-            if(user==null)
+            if(user===null)
                 state.isAuth = false
-            else 
+            else
                 state.isAuth = true
+            state.user = user;
         },
         setEmail:(state,action)=>
         {

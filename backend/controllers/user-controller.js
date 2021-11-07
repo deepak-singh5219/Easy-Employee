@@ -2,14 +2,18 @@ const ErrorHandler = require('../utils/error-handler');
 const userService = require('../services/user-service');
 const UserDto = require('../dtos/user-dto');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 class UserController {
 
     createUser = async (req,res,next) =>
     {
         const file = req.file;
-        const {name,email,username,password,type, address} = req.body;
-        if(!name || !email || !username || !password || !type || !address || !file) return next(ErrorHandler.badRequest());
+        let {name,email,password,type, address, mobile} = req.body;
+        const username = 'user'+crypto.randomInt(11111111,999999999);
+        console.log(req.file)
+        if(!name || !email || !username || !password || !type || !address || !file || !mobile) return next(ErrorHandler.badRequest('All Fields Required'));
+        type = type.toLowerCase();
         if(type==='admin')
         {
             const adminPassword = req.body.adminPassword;
@@ -21,7 +25,7 @@ class UserController {
             if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
         }
         const user = {
-            name,email,username,password,type,address,image:file.filename
+            name,email,username,mobile,password,type,address,image:file.filename
         }
         const userResp = await userService.createUser(user);
         if(!userResp) return next(ErrorHandler.serverError('Failed To Create An Account'));
@@ -47,15 +51,14 @@ class UserController {
         res.json({success:true,message:'Employee Found',data:new UserDto(emp)})
     }
 
-    // get all type of user
-    // getUser = async (req,res,next) =>
-    // {
-    //     const {id} = req.params;
-    //     if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid Employee Id'));
-    //     const emp = await userService.findUser({_id:id});
-    //     if(!emp) return next(ErrorHandler.notFound('No Employee Found'));
-    //     res.json({success:true,message:'Employee Found',data:new UserDto(emp)})
-    // }
+    getUserNoFilter = async (req,res,next) =>
+    {
+        const {id} = req.params;
+        if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid User Id'));
+        const emp = await userService.findUser({_id:id});
+        if(!emp) return next(ErrorHandler.notFound('No User Found'));
+        res.json({success:true,message:'User Found',data:new UserDto(emp)})
+    }
 
 
 }

@@ -40,39 +40,55 @@ const ResetPassword = () =>
         }
     }
     return(
-        <div className="row">
-        <div className="col s12 m6 offset-m3 l4 offset-l4 cusCardWrapper">
-            <div className="card cusCard">
-                <div className="card-content">
-                    <span className="card-title white-text bold">Reset Password</span>
-                    <p className="secondryText">Yup..! Now you can Reset your password</p>
-                    <form method="post" onSubmit={onSubmit}>
-                       <div className="input-field">
-                           <i className="material-icons prefix">email</i>
-                           <input onChange={inputEvent} value={formData.email} type="email" name="email" id="email" readOnly />
-                           <label htmlFor="email">Enter Email</label>
-                       </div> 
-                       <div className="input-field">
-                           <i className="material-icons prefix">lock_open</i>
-                           <input onChange={inputEvent} value={formData.otp} type="number" name="otp" id="otp" />
-                           <label htmlFor="otp">Enter Otp</label>
-                       </div> 
-                       <div className="input-field">
-                           <i className="material-icons prefix">lock</i>
-                           <input onChange={inputEvent} value={formData.password} type="password" name="password" id="password" />
-                           <label htmlFor="password">Enter New Password</label>
-                       </div> 
-                       <div className="input-field center">
-                           <input type="submit" className='btn center' value="Reset Password" />
-                       </div>
-                    </form>
-                   <div className='center'>
-                       <span className='secondryText'>Want to try more? </span> <NavLink to='/login'><span className='bold'>Login</span></NavLink>
-                   </div>
+        <div id="app">
+            <section className="section">
+            <div className="container mt-5">
+                <div className="row">
+                <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <div className="login-brand">
+                    <img src="https://avatars.githubusercontent.com/u/50810214?v=4" alt="logo" width="100" className="shadow-light rounded-circle"/>
+                    </div>
+                    <div className="card card-primary">
+                    <div className="card-header"><h4>Reset Password</h4></div>
+
+                    <div className="card-body">
+                        <p className="text-muted">We have send you an OTP to reset your password</p>
+                        <form onSubmit={onSubmit}>
+                        <div className="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" onChange={inputEvent} value={formData.email} type="email" className="form-control" name="email" tabIndex="1" required autoFocus readOnly/>
+                        </div>
+
+                        <div className="form-group">
+                            <label for="otp">OTP</label>
+                            <input id="otp" onChange={inputEvent} value={formData.otp} type="number" className="form-control pwstrength" data-indicator="pwindicator" name="otp" tabIndex="2" required/>
+                            <div id="pwindicator" className="pwindicator">
+                            <div className="bar"></div>
+                            <div className="label"></div>
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label for="password">New Password</label>
+                            <input id="password" onChange={inputEvent} value={formData.password} type="password" className="form-control" name="password" tabIndex="2" required/>
+                        </div>
+
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary btn-lg btn-block" tabIndex="4">
+                            Reset Password
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                    <div className="simple-footer">
+                    Copyright &copy; Social Codia
+                    </div>
+                </div>
                 </div>
             </div>
+            </section>
         </div>
-    </div> 
     )
 }
 

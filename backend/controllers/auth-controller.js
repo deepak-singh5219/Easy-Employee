@@ -19,10 +19,11 @@ class AuthController {
         else
             data = {username:email};
         const user = await userService.findUser(data);
-        if(!user) return next(ErrorHandler.notFound('Invalid Email or Username'));
-        const {_id,name,username,email:dbEmail,password:hashPassword,type} = user;
+        if(!user) return next(ErrorHandler.badRequest('Invalid Email or Username'));
+        const {_id,name,username,email:dbEmail,password:hashPassword,type,status} = user;
+        if(status!='active') return next(ErrorHandler.badRequest('There is a problem with your account, Please contact to the admin'));
         const isValid = await userService.verifyPassword(password,hashPassword);
-        if(!isValid) return next(ErrorHandler.unAuthorized('Invalid Password'));
+        if(!isValid) return next(ErrorHandler.badRequest('Invalid Password'));
         const payload = {
             _id,
             email:dbEmail,

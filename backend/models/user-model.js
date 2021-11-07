@@ -29,6 +29,12 @@ const userSchema = new Schema({
         maxlength:15,
         trim:true
     },
+    mobile:{
+        type:Number,
+        required:true,
+        minlength:10,
+        maxlength:13,
+    },
     password:{
         type:String,
         required:true,

@@ -7,10 +7,10 @@ import {setAuth} from '../../store/auth-slice';
 const LoginForm = () =>
 {  
     const dispatch = useDispatch();
-    const [enable,setEnable] = useState(false);
+    const [message,setMessage] = useState('');
     const [formData,setFormData] = useState({
-        email:'',
-        password:''
+        email:'info.umairfarooqui@gmail.com',
+        password:'farooqui'
     });
 
     const inputEvent = (e) =>
@@ -23,15 +23,12 @@ const LoginForm = () =>
                 [name]:value
             }
         })
-        checkInput();
     }
     const checkInput = () =>
     {
         console.log(formData.password)
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        setEnable(() =>
-            (re.test(formData.email) && formData.password.length>7) ? true : false
-        )
+
     }
 
     const onSubmit = async (e) =>
@@ -40,44 +37,73 @@ const LoginForm = () =>
         const {email,password} = formData;
         if(!email || !password) return;
         const res = await doLogin({email,password});
+        const {success,message,user} = res.data;
         if(res.status===200)
         {
-            // const {success,message,user} = res.data;
+           if(success)
+           {
             const {user} = res.data;
-        if(res.data.success)
-            dispatch(setAuth(user));
+            if(res.data.success)
+                dispatch(setAuth(user));
+           }
         }
+        setMessage(message);
     }
 
     return(
-     <div className="row">
-         <div className="col s12 m6 offset-m3 l4 offset-l4 cusCardWrapper">
-             <div className="card cusCard">
-                 <div className="card-content">
-                     <span className="card-title white-text bold">Login Form</span>
-                     <p className="secondryText">Login into your account to continue...</p>
-                     <form method="post" onSubmit={onSubmit}>
-                        <div className="input-field">
-                            <i className="material-icons prefix">email</i>
-                            <input onChange={inputEvent} value={formData.email} type="email" name="email" id="email" />
-                            <label htmlFor="email">Enter Email</label>
+        <div id="app">
+        <section className="section">
+          <div className="container mt-5">
+            <div className="row">
+              <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                <div className="login-brand">
+                  <img src="https://avatars.githubusercontent.com/u/50810214?v=4" alt="logo" width="100" className="shadow-light rounded-circle"/>
+                </div>
+    
+                <div className="card card-primary">
+                  <div className="card-header"><h4>Login</h4></div>
+                  <div className="card-body">
+                    <form onSubmit={onSubmit} className="needs-validation" noValidate="">
+                      <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input id="email" onChange={inputEvent} value={formData.email} type="email" className="form-control" name="email" tabIndex="1" required autoFocus/>
+                        <div className="invalid-feedback">
+                          Please fill in your email
                         </div>
-                        <div className="input-field">
-                            <i className="material-icons prefix">lock</i>
-                            <input onChange={inputEvent} value={formData.password} type="password" name="password" id="password" />
-                            <label htmlFor="password">Enter Password</label>
+                      </div>
+    
+                      <div className="form-group">
+                        <div className="d-block">
+                            <label htmlFor="password" className="control-label">Password</label>
+                          <div className="float-right">
+                            <NavLink to='/forgot' className="text-small">
+                              Forgot Password?
+                            </NavLink>
+                          </div>
                         </div>
-                        <div className='forgotPasswordLink'>
-                            <NavLink  to='/forgot'>Forgot Password ?</NavLink>
+                        <input id="password" onChange={inputEvent} value={formData.password} type="password" className="form-control" name="password" tabIndex="2" required/>
+                        <div className="invalid-feedback">
+                          please fill in your password
                         </div>
-                        <div className="input-field center" >
-                            <input type="submit" className='btn center' value="Login" style={{cursor:!enable && 'no-drop'}}/>
-                        </div>
-                     </form>
-                 </div>
-             </div>
-         </div>
-     </div>   
+                      </div>
+    
+    
+                      <div className="form-group">
+                        <button type="submit" className="btn btn-primary btn-lg btn-block" tabIndex="4">
+                          Login
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div className="simple-footer">
+                  Copyright &copy; Social Codia
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     )
 }
 
