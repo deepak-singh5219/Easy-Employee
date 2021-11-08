@@ -10,27 +10,8 @@ const Modal = ({close}) =>
 {
   const dispatch = useDispatch();
   const {freeEmployees} = useSelector(state=>state.userSlice);
-  const [loading,setLoading] = useState(true);
-    useEffect(()=>{
-      fetchEmployees();
-    },[])
+  const [loading,setLoading] = useState(false);
 
-    const  fetchEmployees = async () =>
-    {
-      console.log(!freeEmployees);
-      if(!freeEmployees)
-      {
-        console.log('Employee is null so calling the method to fetch the free employees from databas server')
-        const {data} = await getFreeEmployees();
-        if(data.success)
-        {
-          dispatch(setFreeEmployees(data.data));
-          setLoading(false);
-        }
-      }
-      setLoading(false);
-
-    }
 
     return (    
           <div className={`${style.modalMask}`}>
@@ -42,6 +23,7 @@ const Modal = ({close}) =>
             <div className="card-body p-0">
               <div className="table-responsive">
                 <table className="table table-striped table-md center-text table-striped">
+                  <thead>
                   <tr>
                     <th>#</th>
                     <th>Image</th>
@@ -49,16 +31,17 @@ const Modal = ({close}) =>
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Status</th>
-                    <th>Team</th>
                     <th>Action</th>
                   </tr>
+                  </thead>
+                  <tbody>
                   {
                     !loading && freeEmployees && freeEmployees.map((data,index)=>
                     {
-                      return <RowAddMember index={index+1} data={data} />
+                      return <RowAddMember key={index} index={index+1} data={data} />
                     })
-
                   }
+                  </tbody>
                 </table>
               </div>
             </div>

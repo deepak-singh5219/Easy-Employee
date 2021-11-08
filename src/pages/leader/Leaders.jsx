@@ -36,23 +36,26 @@ const Leaders = () =>
                   <div className="card-body p-0">
                     <div className="table-responsive">
                       <table className="table table-striped table-md center-text">
-                        <tr>
-                          <th>#</th>
-                          <th>Image</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Mobile</th>
-                          <th>Status</th>
-                          <th>Leading Team</th>
-                          <th>Action</th>
-                        </tr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Status</th>
+                            <th>Leading Team</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
                         {
                           !loading && users && users.map((data,index)=>
                           {
-                            return <RowLeader index={index+1} data={data} />
+                            return <RowLeader key={index} index={index+1} data={data} />
                           })
-
                         }
+                        </tbody>
                       </table>
                     </div>
                   </div>

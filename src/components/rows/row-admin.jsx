@@ -5,7 +5,7 @@ const RowAdmin = ({index,data}) =>
     return(
         <tr>
             <td>{index}</td>
-            <td><figure class="avatar"> <img src={data.image} alt={data.name}/> </figure></td>
+            <td><figure className="avatar"> <img src={data.image} alt={data.name}/> </figure></td>
             <td>{data.name}</td>
             <td>{data.email}</td>
             <td>{data.mobile}</td>

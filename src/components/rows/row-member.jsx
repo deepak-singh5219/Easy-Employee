@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setFreeEmployees, setTeamMembers } from "../../store/user-slice";
 import { useSelector } from "react-redux";
+import { updateEmployeeCount } from "../../store/team-slice";
 
 
 const RowMember = ({index,data}) =>
@@ -20,8 +21,12 @@ const RowMember = ({index,data}) =>
         if(res.status===200 && res.data.success)
         {
             toast.success(res.data.message);
+            dispatch(updateEmployeeCount('DECREMENT'));
             dispatch(setTeamMembers(teamMembers.filter(member => member.id!=data.id )));
-            dispatch(setFreeEmployees([...freeEmployees,data]));
+            if(freeEmployees)
+                    dispatch(setFreeEmployees([...freeEmployees,data]));
+                else
+                    dispatch(setFreeEmployees([data]));
         }
         else
             toast.error(res.data.message);
@@ -45,7 +50,7 @@ const RowMember = ({index,data}) =>
     return(
         <tr>
             <td>{index}</td>
-            <td><figure class="avatar"> <img src={data.image} alt={data.name}/> </figure></td>
+            <td><figure className="avatar"> <img src={data.image} alt={data.name}/> </figure></td>
             <td>{data.name}</td>
             <td>{data.email}</td>
             <td>{data.mobile}</td>

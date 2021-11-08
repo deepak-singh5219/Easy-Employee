@@ -40,21 +40,24 @@ const Teams = () =>
                   <div className="card-body p-0">
                     <div className="table-responsive">
                       <table className="table table-striped table-md center-text">
-                        <tr>
-                          <th>#</th>
-                          <th>Image</th>
-                          <th>Name</th>
-                          <th>Leader</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Leader</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
                         {
                           !loading && teams && teams.map((data,index)=>
                           {
-                            return <RowTeam index={index+1} data={data} />
+                            return <RowTeam key={index} index={index+1} data={data} />
                           })
-
                         }
+                        </tbody>
                       </table>
                     </div>
                   </div>
