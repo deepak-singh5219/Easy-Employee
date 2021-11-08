@@ -38,7 +38,8 @@ class UserController {
         const file = req.file;
         const filename = file && file.filename;
         let user,id;
-        if(req.user.type==='admin' || req.user.type==='Admin')
+        console.log(req.user.type);
+        if(req.user.type==='admin')
         {
             const {id} = req.params;
             let {name,username,email,password,type,status, address, mobile} = req.body;
