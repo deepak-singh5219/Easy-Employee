@@ -18,6 +18,8 @@ router.patch('/team/:id',upload.single('image'),asyncMiddleware(teamController.u
 router.get('/teams',asyncMiddleware(teamController.getTeams));
 router.get('/team/:id',asyncMiddleware(teamController.getTeam));
 router.get('/team/:id/members',asyncMiddleware(teamController.getTeamMembers));
+router.patch('/team/member/add',asyncMiddleware(teamController.addMember));
+router.delete('/team/member/remove',asyncMiddleware(teamController.removeMember));
 router.get('/counts',asyncMiddleware(teamController.getCounts));
 
 

@@ -4,6 +4,7 @@ import CountsCard from "../../components/dashboard/CountsCard";
 import Navigation from "../../components/Navigation";
 import RowMember from "../../components/rows/row-member";
 import SideBar from "../../components/Sidebar";
+import Modal from '../../components/modal/Modal';
 import { getTeam,getTeamMembers } from "../../http";
 
 const Team = () =>
@@ -43,11 +44,17 @@ const Team = () =>
 
     const modalAction = () =>
     {
-        setShowModal(true);
+        setShowModal(showModal? false : true);
     }
 
     return(
         <>
+
+{
+        showModal && (
+            <Modal close={modalAction}/>
+        )
+    }
         <Navigation/>
         <SideBar/>
         
@@ -88,14 +95,6 @@ const Team = () =>
                     </div>
                   </div>
                 </div>
-
-                {
-        showModal && (
-            <div className='modal-social'>
-               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio, itaque iusto commodi autem modi harum culpa omnis debitis unde, magnam vitae! Non aliquam vitae assumenda quisquam laudantium ut saepe illum?
-            </div>
-        )
-    }
 
                 <div className="card">
                   <div className="card-header">

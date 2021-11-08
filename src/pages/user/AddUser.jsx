@@ -115,7 +115,7 @@ const AddUser = () =>
                                     <i className="fas fa-phone"></i>
                                 </div>
                                 </div>
-                                <input onChange={inputEvent} value={formData.mobile} type="tel" id='mobile' name='mobile' className="form-control"/>
+                                <input onChange={inputEvent} value={formData.mobile} type="number" id='mobile' name='mobile' className="form-control"/>
                             </div>
                         </div>
 

@@ -42,6 +42,34 @@ class TeamController {
         return (teamResp.modifiedCount!=1) ? next(ErrorHandler.serverError('Failed To Update Team')) : res.json({success:true,message:'Team Updated'})
     }
 
+    addMember = async (req,res,next) =>
+    {
+        const {teamId,userId} = req.body;
+        console.log(teamId);
+        if(!teamId || !userId) return next(ErrorHandler.badRequest('All Fields Required'));
+        if(!mongoose.Types.ObjectId.isValid(teamId)) return next(ErrorHandler.badRequest('Invalid Team Id'));
+        if(!mongoose.Types.ObjectId.isValid(userId)) return next(ErrorHandler.badRequest('Invalid Employee Id'));
+        const user = await userService.findUser({_id:userId});
+        if(!user) return next(ErrorHandler.notFound('No Employee Found'));
+        if(user.type!='employee') return next(ErrorHandler.badRequest(`${user.name} is not an employee`));
+        if(user.team) return next(ErrorHandler.badRequest(`${user.name} already in a team`));
+        const result = await userService.updateUser(userId,{team:teamId});
+        return (result.modifiedCount!=1) ? next(ErrorHandler.serverError(`Failed To Add ${user.name} in team`)) : res.json({success:true,message:`Successfully added ${user.name} in team`});
+    }
+
+    removeMember = async (req,res,next) =>
+    {
+        const {userId} = req.body;
+        if(!userId) return next(ErrorHandler.badRequest('All Fields Required'));
+        if(!mongoose.Types.ObjectId.isValid(userId)) return next(ErrorHandler.badRequest('Invalid Employee Id'));
+        const user = await userService.findUser({_id:userId});
+        if(!user) return next(ErrorHandler.notFound('No Employee Found'));
+        if(user.type!='employee') return next(ErrorHandler.badRequest(`${user.name} is not an employee`));
+        if(!user.team) return next(ErrorHandler.badRequest(`${user.name} is not in any team`));
+        const result = await userService.updateUser(userId,{team:null});
+        return (result.modifiedCount!=1) ? next(ErrorHandler.serverError(`Failed To Remove ${user.name} from team`)) : res.json({success:true,message:`Successfully removed ${user.name} from team`});
+    }
+
     getTeams = async (req,res,next) =>
     {
         const teams = await teamService.findTeams({});

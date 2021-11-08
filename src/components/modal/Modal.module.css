@@ -1,0 +1,20 @@
+.modalMask {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+    align-items: center;
+}
+
+.modalBody{
+    width: 70%;
+    max-width: 1000px;
+    background: white;
+    max-height: 80vh;
+    overflow: scroll;
+}
