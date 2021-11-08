@@ -11,16 +11,17 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setTeam, setTeamInformation } from '../../store/team-slice';
 import { setFreeEmployees, setTeamMembers } from '../../store/user-slice';
+import RowAddMember from "../../components/rows/row-add-member";
 
 const Team = () => {
   const dispatch = useDispatch();
   const { team } = useSelector(state => state.teamSlice);
   const { teamMembers } = useSelector(state => state.userSlice);
-  const {teamInformation} = useSelector(state=>state.teamSlice);
-  const {freeEmployees} = useSelector(state=>state.userSlice);
+  const { teamInformation } = useSelector(state => state.teamSlice);
+  const { freeEmployees } = useSelector(state => state.userSlice);
 
   const [loading, setLoading] = useState(true);
-  const [freeApiCalled,setFreeApiCalled] = useState(false);
+  const [freeApiCalled, setFreeApiCalled] = useState(false);
   const [membersLoading, setMembersLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
@@ -43,15 +44,13 @@ const Team = () => {
 
   const modalAction = async () => {
     setShowModal(showModal ? false : true);
-      if(!freeApiCalled)
-      {
-        const {data} = await getFreeEmployees();
-        if(data.success)
-        {
-          dispatch(setFreeEmployees(data.data));
-        }
-        setFreeApiCalled(true);
+    if (!freeApiCalled) {
+      const { data } = await getFreeEmployees();
+      if (data.success) {
+        dispatch(setFreeEmployees(data.data));
       }
+      setFreeApiCalled(true);
+    }
   }
 
 
@@ -62,7 +61,29 @@ const Team = () => {
       <ToastContainer />
       {
         showModal && (
-          <Modal close={modalAction} />
+          <Modal close={modalAction} title="Add Member">
+            <table className="table table-striped table-md center-text table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  !loading && freeEmployees && freeEmployees.map((data, index) => {
+                    return <RowAddMember key={index} index={index + 1} data={data} />
+                  })
+                }
+              </tbody>
+            </table>
+
+          </Modal>
         )
       }
       <Navigation />
@@ -70,45 +91,45 @@ const Team = () => {
 
       <div className="main-content">
         <section className="section">
-        {
+          {
             team &&
             <>
-            <div className="section-header  d-flex justify-content-between">
-              <h1>Team</h1>
-              <div>
+              <div className="section-header  d-flex justify-content-between">
+                <h1>Team</h1>
+                <div>
 
-                <NavLink to={`/editteam/${id}`} className='btn btn-primary mr-4'>Edit Team</NavLink>
-                <button onClick={modalAction} className='btn btn-primary'>Add Member</button>
-              </div>
-            </div>
-            <div className="row">
-              <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-              <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-              <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-              <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-            </div>
-
-            <div className="card">
-              <div className="card-body row">
-                <div className="col-md-3 ">
-                  <img className='img-fluid img-thumbnail' src={team.image} alt="" />
-                </div>
-                <div className="col-md-9">
-                  <table className='table'>
-                    <tbody>
-                      <tr>
-                        <th>Name</th>
-                        <td>{team.name}</td>
-                      </tr>
-                      <tr>
-                        <th>Description</th>
-                        <td>{team.description}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <NavLink to={`/editteam/${id}`} className='btn btn-primary mr-4'>Edit Team</NavLink>
+                  <button onClick={modalAction} className='btn btn-primary'>Add Member</button>
                 </div>
               </div>
-            </div>
+              <div className="row">
+                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
+              </div>
+
+              <div className="card">
+                <div className="card-body row">
+                  <div className="col-md-3 ">
+                    <img className='img-fluid img-thumbnail' src={team.image} alt="" />
+                  </div>
+                  <div className="col-md-9">
+                    <table className='table'>
+                      <tbody>
+                        <tr>
+                          <th>Name</th>
+                          <td>{team.name}</td>
+                        </tr>
+                        <tr>
+                          <th>Description</th>
+                          <td>{team.description}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </>
           }
 
