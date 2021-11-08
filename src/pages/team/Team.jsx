@@ -6,37 +6,35 @@ import RowMember from "../../components/rows/row-member";
 import SideBar from "../../components/Sidebar";
 import Modal from '../../components/modal/Modal';
 import { getTeam,getTeamMembers } from "../../http";
+import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {setTeam}  from '../../store/team-slice';
+import {setTeamMembers} from '../../store/user-slice';
 
 const Team = () =>
 {
+    const dispatch = useDispatch();
+    const {team} = useSelector(state=>state.teamSlice);
+    const {teamMembers} = useSelector(state=>state.userSlice);
     const [loading,setLoading] = useState(true);
     const [membersLoading,setMembersLoading] = useState(true);
-    const [members,setMembers] = useState();
+
     const [showModal,setShowModal] = useState(false);
-    console.log(loading)
-    const [team,setTeam] = useState({
-        name:'',
-        email:'',
-        mobile:'',
-        image:'',
-        address:'',
-        status:''
-    });
 
     const {id} = useParams();
-    console.log(useParams())
     useEffect(()=>{
         (async ()=>{
             const {data} = await getTeam(id);
             if(data.success)
             {
-                setTeam(data.data);
+                dispatch(setTeam(data.data));
                 setLoading(false);
             }
             const res = await getTeamMembers(id);
             if(res.data.success)
             {
-                setMembers(res.data.data);
+                dispatch(setTeamMembers(res.data.data))
                 setMembersLoading(false);
             }
         })();
@@ -49,8 +47,9 @@ const Team = () =>
 
     return(
         <>
-
-{
+    
+    <ToastContainer/>
+    {
         showModal && (
             <Modal close={modalAction}/>
         )
@@ -69,12 +68,15 @@ const Team = () =>
                 </div>
             </div>
             <div className="row">
-            <CountsCard title='Total Employee' icon='fa-user' count='125'/>
-            <CountsCard title='Total Employee' icon='fa-user' count='125'/>
-            <CountsCard title='Total Employee' icon='fa-user' count='125'/>
-            <CountsCard title='Total Employee' icon='fa-user' count='125'/>
+              <CountsCard title='Total Employee' icon='fa-user' count='125'/>
+              <CountsCard title='Total Employee' icon='fa-user' count='125'/>
+              <CountsCard title='Total Employee' icon='fa-user' count='125'/>
+              <CountsCard title='Total Employee' icon='fa-user' count='125'/>
             </div>
-                <div className="card">
+                
+                {
+                  team &&
+                  <div className="card">
                   <div className="card-body row">
                     <div className="col-md-3 ">
                         <img className='img-fluid img-thumbnail' src={team.image} alt="" />
@@ -95,8 +97,11 @@ const Team = () =>
                     </div>
                   </div>
                 </div>
+                }
 
-                <div className="card">
+                {
+                  !membersLoading && 
+                  <div className="card">
                   <div className="card-header">
                     <h4>All Employees</h4>
                   </div>
@@ -113,7 +118,7 @@ const Team = () =>
                           <th>Action</th>
                         </tr>
                         {
-                          !loading && members && members.map((data,index)=>
+                          !loading && teamMembers && teamMembers.map((data,index)=>
                           {
                             return <RowMember index={index+1} data={data} />
                           })
@@ -123,6 +128,7 @@ const Team = () =>
                     </div>
                   </div>
                 </div>
+                }
         </section>
       </div>
       </>

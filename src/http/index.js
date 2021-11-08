@@ -20,7 +20,10 @@ export const updateUser = (id,data) => api.patch(`/admin/user/${id}`,data);
 export const addTeam = data => api.post('/admin/team',data);
 export const updateTeam = (id,data) => api.patch(`/admin/team/${id}`,data);
 export const getEmployee = data => api.get(`/admin/employee/${data}`);
+export const getFreeEmployees = () => api.get('/admin/employees/free');
 export const getTeam = data => api.get(`/admin/team/${data}`);
+export const removeMember = data => api.patch('/admin/team/member/remove',data);
+export const addMember = data => api.patch('/admin/team/member/add',data);
 export const getUser = data => api.get(`/admin/user/${data}`);
 
 export default api;

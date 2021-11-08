@@ -19,7 +19,7 @@ Using this script you can track your employee targets etc.. export the details i
 ![Login Page](https://i.imgur.com/XRUQxXd.png "Login Page")
 ![Forgot Password](https://i.imgur.com/CfuUeoS.png "Forgot Password ")
 ![Reset Password](https://i.imgur.com/JoYDkHO.png "Reset Passwrod")
-![Dashboard](https://i.imgur.com/XRUQxXd.png "Dashboard")
+![Dashboard](https://i.imgur.com/y0o324V.png "Dashboard")
 ![Add User](https://i.imgur.com/WIoZGWp.png "Add User")
 ![Users](https://i.imgur.com/3XB0gCH.png "Users")
 ![User](https://i.imgur.com/lg7AlAy.png "User")

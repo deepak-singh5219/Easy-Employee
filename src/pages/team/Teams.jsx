@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
 import RowTeam from "../../components/rows/team-row";
 import SideBar from "../../components/Sidebar";
 import { getTeams } from "../../http";
+import { setTeam } from "../../store/team-slice";
+import { setTeamMembers } from "../../store/user-slice";
 
 const Teams = () =>
 {
+  const dispatch = useDispatch();
+  dispatch(setTeam(null));
+  dispatch(setTeamMembers(null))
     const [loading,setLoading] = useState(true);
     const [teams,setTeams] = useState({});
     useEffect(()=>{

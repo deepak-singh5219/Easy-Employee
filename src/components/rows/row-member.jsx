@@ -1,7 +1,47 @@
 import { NavLink } from "react-router-dom";
+import swal from "sweetalert";
+import { removeMember} from "../../http/index";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import { setFreeEmployees, setTeamMembers } from "../../store/user-slice";
+import { useSelector } from "react-redux";
+
 
 const RowMember = ({index,data}) =>
 {
+
+    const dispatch = useDispatch();
+    const {teamMembers,freeEmployees} = useSelector(state => state.userSlice);
+
+    const remove = async () =>
+    {
+        const res = await removeMember({userId:data.id});
+        if(res.status===200 && res.data.success)
+        {
+            toast.success(res.data.message);
+            dispatch(setTeamMembers(teamMembers.filter(member => member.id!=data.id )));
+            dispatch(setFreeEmployees([...freeEmployees,data]));
+        }
+        else
+            toast.error(res.data.message);
+    }
+
+    const showDialog = () =>
+    {  
+        swal({
+        title: "Are you sure?",
+        text: `You want to remove!\n${data.name} \nfrom this team`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((yes) => {
+        if (yes)
+            remove(); 
+      });
+    }
+
     return(
         <tr>
             <td>{index}</td>
@@ -10,7 +50,7 @@ const RowMember = ({index,data}) =>
             <td>{data.email}</td>
             <td>{data.mobile}</td>
             <td><div className={`badge ${data.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
-            <td><NavLink to={`/employee/${data.id}`} className="btn btn-secondary">Detail</NavLink></td>
+            <td><button className='btn btn-danger' onClick={showDialog}><i className="fas fa-trash-alt"></i></button></td>
         </tr>
     );
 }

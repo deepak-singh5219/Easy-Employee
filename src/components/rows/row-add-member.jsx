@@ -1,8 +1,35 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import swal from 'sweetalert';
+import { toast } from "react-toastify";
+import { addMember } from "../../http";
+import { useDispatch } from "react-redux";
+import { setFreeEmployees, setTeamMembers } from "../../store/user-slice";
 
 const RowAddMember = ({index,data}) =>
 {
+
+  const {team} = useSelector(state=>state.teamSlice);
+  const {freeEmployees,teamMembers} = useSelector(state=>state.userSlice);
+  const dispatch = useDispatch();
+
+  const add = async () =>
+  {
+        const res = await addMember({userId:data.id,teamId:team.id});
+        if(res.status===200 && res.data.success)
+        {
+            toast.success(res.data.message);
+            removeMemberFromStore(data.id);
+        }
+        else
+            toast.error(res.data.message);
+  }
+
+  const removeMemberFromStore = (id) =>
+  {
+      dispatch(setFreeEmployees(freeEmployees.filter(data=> data.id!=id)));
+      dispatch(setTeamMembers([...teamMembers,data]));
+  }
 
     const showDialog = () =>
     {  swal({
@@ -13,11 +40,8 @@ const RowAddMember = ({index,data}) =>
         dangerMode: true,
       })
       .then((yes) => {
-        if (yes) {
-          swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-          });
-        }
+        if (yes)
+          add();
       });
     }
 
