@@ -6,7 +6,7 @@ import { addUser } from "../../http";
 
 const AddUser = () =>
 {
-    const [imagePreview, setImagePreview] = useState('http://localhost:5500/storage/images/profile/profile-1636215026196-734067891umair.jpg');
+    const [imagePreview, setImagePreview] = useState('/assets/icons/user.png');
     const [formData,setFormData] = useState({
         name:'',
         email:'',

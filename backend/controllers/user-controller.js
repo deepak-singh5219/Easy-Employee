@@ -3,6 +3,7 @@ const userService = require('../services/user-service');
 const UserDto = require('../dtos/user-dto');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const teamService = require('../services/team-service');
 
 class UserController {
 
@@ -35,24 +36,47 @@ class UserController {
     updateUser = async (req,res,next) =>
     {
         const file = req.file;
-        const {id} = req.params;
         const filename = file && file.filename;
-        console.log(filename);
-        let {name,username,email,password,type,status, address, mobile} = req.body;
-        type = type && type.toLowerCase();
-        if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid User Id'));
-        if(type==='admin')
+        let user,id;
+        if(req.user.type==='admin' || req.user.type==='Admin')
         {
-            const adminPassword = req.body.adminPassword;
-            if(!adminPassword)
-                return next(ErrorHandler.badRequest(`Please Enter Your Password to Add ${name} as an Admin`));
-            const {_id} = req.user;
-            const {password:hashPassword} = await userService.findUser({_id});
-            const isPasswordValid = await userService.verifyPassword(adminPassword,hashPassword);
-            if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
+            const {id} = req.params;
+            let {name,username,email,password,type,status, address, mobile} = req.body;
+            type = type && type.toLowerCase();
+            if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid User Id'));
+            if(type)
+            {
+                const dbUser = await userService.findUser({_id:id});
+                if(!dbUser) return next(ErrorHandler.badRequest('No User Found'));
+                if(dbUser.type!=type)
+                { 
+                    const {_id} = req.user;
+                    if(_id===id) return next(ErrorHandler.badRequest(`You Can't Change Your Own Position`));
+                    const {adminPassword} = req.body;
+                    if(!adminPassword)
+                        return next(ErrorHandler.badRequest(`Please Enter Your Password To Change The Type`));
+                    const {password:hashPassword} = await userService.findUser({_id});
+                    const isPasswordValid = await userService.verifyPassword(adminPassword,hashPassword);
+                    if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
+    
+                    if((dbUser.type==='employee') && (type==='admin' || type==='leader'))
+                        if(dbUser.team!=null) return next(ErrorHandler.badRequest(`Error : ${dbUser.name} is in a team.`));
+    
+                    if((dbUser.type==='leader') && (type==='admin' || type==='employee'))
+                        if(await teamService.findTeam({leader:id})) return next(ErrorHandler.badRequest(`Error : ${dbUser.name} is leading a team.`));
+                }
+            }
+            user = {
+                name,email,status,username,mobile,password,type,address,image:filename
+            }
         }
-        const user = {
-            name,email,status,username,mobile,password,type,address,image:filename
+        else
+        {
+            id =  req.user._id;
+            let {name,username,address,mobile} = req.body;
+            user = {
+                name,username,mobile,address,image:filename
+            }
         }
         const userResp = await userService.updateUser(id,user);
         if(!userResp) return next(ErrorHandler.serverError('Failed To Update Account'));
