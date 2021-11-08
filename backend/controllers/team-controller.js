@@ -84,7 +84,10 @@ class TeamController {
         if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid Team Id'));
         const team = await teamService.findTeam({_id:id});
         if(!team) return next(ErrorHandler.notFound('No Team Found'));
-        res.json({success:true,message:'Team Found',data:new TeamDto(team)})
+        const data = new TeamDto(team);
+        const employee = await userService.findCount({team:data.id});
+        data.information = {employee};
+        res.json({success:true,message:'Team Found',data})
     }
 
     getTeamMembers = async (req,res,next) =>
