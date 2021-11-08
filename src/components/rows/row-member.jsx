@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const RowAdmin = ({index,data}) =>
+const RowMember = ({index,data}) =>
 {
     return(
         <tr>
@@ -10,9 +10,9 @@ const RowAdmin = ({index,data}) =>
             <td>{data.email}</td>
             <td>{data.mobile}</td>
             <td><div className={`badge ${data.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
-            <td><NavLink to={`/admin/${data.id}`} className="btn btn-secondary">Detail</NavLink></td>
+            <td><NavLink to={`/employee/${data.id}`} className="btn btn-secondary">Detail</NavLink></td>
         </tr>
     );
 }
 
-export default RowAdmin;
+export default RowMember;

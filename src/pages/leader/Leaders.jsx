@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
-import RowAdmin from "../../components/rows/row-admin";
+import RowEmployee from "../../components/rows/row-employee";
+import RowLeader from "../../components/rows/row-leader";
 import SideBar from "../../components/Sidebar";
-import { getAdmins } from "../../http";
+import { getLeaders } from "../../http";
 
-const AdminsPage = () =>
+const Leaders = () =>
 {
+    const [users,setUsers] = useState();
     const [loading,setLoading] = useState(true);
-    const [users,setUsers] = useState({});
-
 
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getAdmins();
+            const {data} = await getLeaders();
             if(data.success)
             {
                 setUsers(data.data);
@@ -28,10 +28,10 @@ const AdminsPage = () =>
         <SideBar/>
         <div className="main-content">
         <section className="section">
-            <HeaderSection title='Admins'/>
+            <HeaderSection title='Leaders'/>
                 <div className="card">
                   <div className="card-header">
-                    <h4>All Admins</h4>
+                    <h4>All Leaders</h4>
                   </div>
                   <div className="card-body p-0">
                     <div className="table-responsive">
@@ -43,12 +43,13 @@ const AdminsPage = () =>
                           <th>Email</th>
                           <th>Mobile</th>
                           <th>Status</th>
+                          <th>Leading Team</th>
                           <th>Action</th>
                         </tr>
                         {
                           !loading && users && users.map((data,index)=>
                           {
-                            return <RowAdmin index={index+1} data={data} />
+                            return <RowLeader index={index+1} data={data} />
                           })
 
                         }
@@ -62,4 +63,4 @@ const AdminsPage = () =>
     )
 }
 
-export default AdminsPage;
+export default Leaders;

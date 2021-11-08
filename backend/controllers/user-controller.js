@@ -32,6 +32,33 @@ class UserController {
         res.json({success:true,message:'User has been Added',user:new UserDto(user)});
     }
 
+    updateUser = async (req,res,next) =>
+    {
+        const file = req.file;
+        const {id} = req.params;
+        const filename = file && file.filename;
+        console.log(filename);
+        let {name,username,email,password,type,status, address, mobile} = req.body;
+        type = type && type.toLowerCase();
+        if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid User Id'));
+        if(type==='admin')
+        {
+            const adminPassword = req.body.adminPassword;
+            if(!adminPassword)
+                return next(ErrorHandler.badRequest(`Please Enter Your Password to Add ${name} as an Admin`));
+            const {_id} = req.user;
+            const {password:hashPassword} = await userService.findUser({_id});
+            const isPasswordValid = await userService.verifyPassword(adminPassword,hashPassword);
+            if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
+        }
+        const user = {
+            name,email,status,username,mobile,password,type,address,image:filename
+        }
+        const userResp = await userService.updateUser(id,user);
+        if(!userResp) return next(ErrorHandler.serverError('Failed To Update Account'));
+        res.json({success:true,message:'Account Updated'});
+    }
+
     getUsers = async (req,res,next) =>
     {
         const type = req.path.replace('/','').replace('s','');

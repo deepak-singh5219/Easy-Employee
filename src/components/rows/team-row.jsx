@@ -19,7 +19,7 @@ const RowTeam = ({index,data}) =>
                     No Leader
                 </div> }
             </td>
-            <td><div className={`badge ${data.status==='active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
+            <td><div className={`badge ${data.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
             <td><NavLink to={`/team/${data.id}`} className="btn btn-secondary">Detail</NavLink></td>
         </tr>
     );

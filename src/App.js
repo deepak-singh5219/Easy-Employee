@@ -22,6 +22,13 @@ import Team from './pages/team/Team';
 import EditUser from './pages/user/EditUser';
 import EditTeam from './pages/team/EditTeam';
 import Admin from './pages/admin/Admin';
+import './App.css';
+import './assets/css/bootstrap.min.css';
+import './assets/css/style.css';
+import './assets/css/components.css';
+import Leaders from './pages/leader/Leaders';
+// import './assets/css/asdfasdf';
+// import './assets/css/asdfasdf';
 
 const App = () =>
 {
@@ -71,6 +78,9 @@ const App = () =>
       </ProtectedRoute>
       <ProtectedRoute  path='/admin/:id'>
         <Admin/>
+      </ProtectedRoute>
+      <ProtectedRoute  path='/leaders'>
+        <Leaders/>
       </ProtectedRoute>
     </Switch>
   )

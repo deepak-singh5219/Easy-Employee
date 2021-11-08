@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import {resetPassword} from "../../../http/index";
 
 const ResetPassword = () =>

@@ -8,6 +8,7 @@ const LoginForm = () =>
 {  
     const dispatch = useDispatch();
     const [message,setMessage] = useState('');
+    console.log(message);
     const [formData,setFormData] = useState({
         email:'info.umairfarooqui@gmail.com',
         password:'farooqui'
@@ -24,12 +25,6 @@ const LoginForm = () =>
             }
         })
     }
-    const checkInput = () =>
-    {
-        console.log(formData.password)
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    }
 
     const onSubmit = async (e) =>
     {
@@ -42,7 +37,6 @@ const LoginForm = () =>
         {
            if(success)
            {
-            const {user} = res.data;
             if(res.data.success)
                 dispatch(setAuth(user));
            }

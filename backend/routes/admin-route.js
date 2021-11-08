@@ -5,7 +5,7 @@ const upload = require('../services/file-upload-service');
 const asyncMiddleware = require('../middlewares/async-middleware');
 
 router.post('/user',upload.single('profile'),asyncMiddleware(userController.createUser));
-router.patch('/user',upload.single('profile'),asyncMiddleware(userController.createUser));
+router.patch('/user/:id',upload.single('profile'),asyncMiddleware(userController.updateUser));
 router.get('/employees',asyncMiddleware(userController.getUsers));
 router.get('/employee/:id',asyncMiddleware(userController.getUser));
 router.get('/user/:id',asyncMiddleware(userController.getUserNoFilter));
@@ -17,6 +17,7 @@ router.post('/team',upload.single('image'),asyncMiddleware(teamController.create
 router.patch('/team/:id',upload.single('image'),asyncMiddleware(teamController.updateTeam));
 router.get('/teams',asyncMiddleware(teamController.getTeams));
 router.get('/team/:id',asyncMiddleware(teamController.getTeam));
+router.get('/team/:id/members',asyncMiddleware(teamController.getTeamMembers));
 router.get('/counts',asyncMiddleware(teamController.getCounts));
 
 

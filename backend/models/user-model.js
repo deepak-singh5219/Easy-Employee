@@ -97,7 +97,8 @@ userSchema.pre('save',function(done){
 
 userSchema.pre('updateOne',function(done){
     const user = this.getUpdate();
-
+    if(!user.password)
+        return done();
     bcrypt.genSalt(SALT_FACTOR,(err,salt)=>
     {
         if(err)

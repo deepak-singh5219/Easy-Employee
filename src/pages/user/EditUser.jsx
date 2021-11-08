@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/navigation";
-import SideBar from "../../components/sidebar";
-import { addUser,getUser } from "../../http";
+import Navigation from "../../components/Navigation";
+import SideBar from "../../components/Sidebar";
+import { updateUser,getUser, updateTeam } from "../../http";
 
 const EditUser = () =>
 {
@@ -19,6 +19,8 @@ const EditUser = () =>
         profile:'',
         status:''
     });
+
+    const [updateFormData,setUpdatedFormData] = useState({});
 
     const [userType,setUserType] = useState('User');
 
@@ -43,6 +45,13 @@ const EditUser = () =>
                 [name]:value
             }
 
+        });
+        setUpdatedFormData((old)=>
+        {
+            return{
+                ...old,
+                [name]:value
+            }
         })
     }
 
@@ -50,24 +59,33 @@ const EditUser = () =>
     {
         e.preventDefault();
 
-        const {name,email,mobile,password,type,address,profile} = formData;
-        if(!name || !email || !mobile || !password || !type || !address || !profile) return;
+        console.log(updateFormData);
+
+
+        // const {name,email,mobile,password,type,address,profile} = formData;
+        // if(!name || !email || !mobile || !password || !type || !address || !profile) return;
 
         const fd = new FormData();
-        Object.keys(formData).map((key)=>
+        Object.keys(updateFormData).map((key)=>
         {
-            fd.append(key,formData[key]);
-            console.log(formData[key])
+            return fd.append(key,updateFormData[key]);
         })
-        console.log(fd);
-        const res = await addUser(fd);
-        console.log(res);
+        const res = await updateUser(id,fd);
     }
 
     const captureImage = (e) =>
     {
         const file = e.target.files[0];
         setFormData((old)=>
+        {
+            return{
+                ...old,
+                profile:file
+            }
+
+        })
+
+        setUpdatedFormData((old)=>
         {
             return{
                 ...old,
@@ -100,7 +118,7 @@ const EditUser = () =>
                             </div>
                         </div>
 
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-4">
                             <label>Enter Name</label>
                             <div className="input-group">
                                 <div className="input-group-prepend">
@@ -112,7 +130,7 @@ const EditUser = () =>
                             </div>
                         </div>
 
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-4">
                             <label>Enter Email</label>
                             <div className="input-group">
                                 <div className="input-group-prepend">
@@ -121,6 +139,18 @@ const EditUser = () =>
                                 </div>
                                 </div>
                                 <input onChange={inputEvent} value={formData.email} type="email" id='email' name='email' className="form-control"/>
+                            </div>
+                        </div>
+
+                        <div className="form-group col-md-4">
+                            <label>Enter Username</label>
+                            <div className="input-group">
+                                <div className="input-group-prepend">
+                                <div className="input-group-text">
+                                    <i className="fas fa-user-circle"></i>
+                                </div>
+                                </div>
+                                <input onChange={inputEvent} value={formData.username} type="username" id='username' name='username' className="form-control"/>
                             </div>
                         </div>
 

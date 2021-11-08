@@ -8,6 +8,8 @@ const teamScheam = new Schema({
         type:String,
         unique:true,
         require:true,
+        minlength:[3,'Team name too short.'],
+        maxlength:[20,"Team name too long"],
         trim:true
     },
     description:{

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams,useHistory, NavLink } from "react-router-dom";
-import Navigation from "../../components/navigation";
-import SideBar from "../../components/sidebar";
+import { useParams, NavLink } from "react-router-dom";
+import Navigation from "../../components/Navigation";
+import SideBar from "../../components/Sidebar";
 import { getUser } from "../../http";
 
 const Admin = () =>
 {
     const [loading,setLoading] = useState(false);
+    console.log(loading);
     const [user,setUser] = useState({
         name:'',
         email:'',
@@ -15,7 +16,6 @@ const Admin = () =>
         address:'',
         status:''
     });
-    const history = useHistory();
     const {id} = useParams();
     console.log(useParams())
     useEffect(()=>{
@@ -27,7 +27,7 @@ const Admin = () =>
                 setLoading(false);
             }
         })();
-    },[])
+    },[id])
 
 
     return(

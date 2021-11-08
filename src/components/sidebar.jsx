@@ -15,6 +15,7 @@ const SideBar = () =>
           
             <li><NavLink className="nav-link" to="/home"><i className="fas fa-fire"></i> <span>Dashboard</span></NavLink></li>
             <li><NavLink className="nav-link" to="/employees"><i className="fas fa-fire"></i> <span>Employees</span></NavLink></li>
+            <li><NavLink className="nav-link" to="/leaders"><i className="fas fa-fire"></i> <span>Leaders</span></NavLink></li>
             <li><NavLink className="nav-link" to="/admins"><i className="fas fa-fire"></i> <span>Admins</span></NavLink></li>
             <li><NavLink className="nav-link" to="/teams"><i className="fas fa-fire"></i> <span>Teams</span></NavLink></li>
 

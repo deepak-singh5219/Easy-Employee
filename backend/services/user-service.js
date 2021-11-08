@@ -5,6 +5,8 @@ class UserService {
 
     createUser = async user => await UserModel.create(user);
 
+    updateUser = async (_id,user) => { console.log('user fomr service'+user.image); return await UserModel.updateOne({_id},user); }
+
     findCount = async filter => await UserModel.find(filter).countDocuments();
 
     findUser = async filter => await UserModel.findOne(filter);

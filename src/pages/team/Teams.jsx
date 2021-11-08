@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/navigation";
+import Navigation from "../../components/Navigation";
 import RowTeam from "../../components/rows/team-row";
-import SideBar from "../../components/sidebar";
+import SideBar from "../../components/Sidebar";
 import { getTeams } from "../../http";
 
 const Teams = () =>
 {
     const [loading,setLoading] = useState(true);
     const [teams,setTeams] = useState({});
-
     useEffect(()=>{
         (async ()=>{
             const {data} = await getTeams();

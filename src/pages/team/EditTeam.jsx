@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/navigation";
-import SideBar from "../../components/sidebar";
+import Navigation from "../../components/Navigation";
+import SideBar from "../../components/Sidebar";
 import { getTeam, updateTeam } from "../../http";
 
 const EditTeam = () =>
@@ -11,9 +11,12 @@ const EditTeam = () =>
     const [formData,setFormData] = useState({
         name:'',
         description:'',
-        image:''
+        image:'',
+        status:''
     });
 
+    const [updateFormData,setUpdatedFormData] = useState({});
+    
     const {id} = useParams();
 
     useEffect(()=>{
@@ -22,7 +25,7 @@ const EditTeam = () =>
             setFormData(data.data);
             setImagePreview(data.data.image)
         })();
-    },[])
+    },[id])
 
     const inputEvent = (e) =>
     {
@@ -35,6 +38,14 @@ const EditTeam = () =>
             }
 
         })
+
+        setUpdatedFormData((old)=>
+        {
+            return{
+                ...old,
+                [name]:value
+            }
+        })
     }
 
     const onSubmit = async (e) =>
@@ -45,15 +56,11 @@ const EditTeam = () =>
         if(!name || !description) return;
 
         const fd = new FormData();
-        Object.keys(formData).map((key)=>
+        Object.keys(updateFormData).map((key)=>
         {
-            fd.append(key,formData[key]);
-            console.log(formData[key])
+            return fd.append(key,updateFormData[key]);
         })
-
-        console.log(fd);
         const res = await updateTeam(id,fd);
-        console.log(res);
     }
 
     const captureImage = (e) =>
@@ -67,6 +74,16 @@ const EditTeam = () =>
             }
 
         })
+
+        setUpdatedFormData((old)=>
+        {
+            return{
+                ...old,
+                image:file
+            }
+
+        })
+        
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () =>
@@ -92,7 +109,7 @@ const EditTeam = () =>
                             </div>
                         </div>
 
-                        <div className="form-group col-md-12">
+                        <div className="form-group col-md-6">
                             <label>Enter Team Name</label>
                             <div className="input-group">
                                 <div className="input-group-prepend">
@@ -102,6 +119,16 @@ const EditTeam = () =>
                                 </div>
                                 <input onChange={inputEvent} value={formData.name} type="text" id='name' name='name' className="form-control"/>
                             </div>
+                        </div>
+
+                        <div className="form-group col-md-6">
+                            <label>Team Status</label>
+                            <select name='status' onChange={inputEvent} value={formData.status} className="form-control select2">
+                                <option>Active</option>
+                                <option>Banned</option>
+                                <option>Expired</option>
+                                <option>Deleted</option>
+                            </select>
                         </div>
 
                         <div className="form-group col-md-12 ">

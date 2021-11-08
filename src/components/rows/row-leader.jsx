@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const RowEmployee = ({index,data}) =>
+const RowLeader = ({index,data}) =>
 {
     return(
         <tr>
@@ -27,4 +27,4 @@ const RowEmployee = ({index,data}) =>
     );
 }
 
-export default RowEmployee;
+export default RowLeader;

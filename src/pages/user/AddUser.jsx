@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/navigation";
-import SideBar from "../../components/sidebar";
+import Navigation from "../../components/Navigation";
+import SideBar from "../../components/Sidebar";
 import { addUser } from "../../http";
 
 const AddUser = () =>
@@ -12,7 +12,7 @@ const AddUser = () =>
         email:'',
         mobile:'',
         password:'',
-        type:'',
+        type:'Employee',
         address:'',
         profile:''
     });
@@ -40,8 +40,7 @@ const AddUser = () =>
         const fd = new FormData();
         Object.keys(formData).map((key)=>
         {
-            fd.append(key,formData[key]);
-            console.log(formData[key])
+            return fd.append(key,formData[key]);
         })
         console.log(fd);
         const res = await addUser(fd);
@@ -154,7 +153,7 @@ const AddUser = () =>
                         </div>
 
                         <div className="form-group text-center col-md-12">
-                            <button className='btn btn-primary btn-lg' type='submit' style={{width:'30vh'}}>Add User</button>
+                            <button className='btn btn-primary btn-lg' type='submit' style={{width:'30vh'}}>Add {formData.type}</button>
                         </div>
 
                     </form>

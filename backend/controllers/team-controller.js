@@ -3,6 +3,7 @@ const ErrorHandler = require('../utils/error-handler');
 const TeamDto = require('../dtos/team-dto');
 const userService = require('../services/user-service');
 const mongoose = require('mongoose');
+const UserDto = require('../dtos/user-dto');
 
 class TeamController {
 
@@ -26,8 +27,9 @@ class TeamController {
         const {id} = req.params;
         if(!id) return next(ErrorHandler.badRequest('Team Id Is Missing'));
         if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid Team Id'));
-        const {name,description,status,leader} =req.body;
+        let {name,description,status,leader} =req.body;
         const image = req.file && req.file.filename;
+        status = status && status.toLowerCase();
         if(leader && !mongoose.Types.ObjectId.isValid(leader)) return next(ErrorHandler.badRequest('Invalid Leader Id'));
         const team = {
             name,
@@ -37,7 +39,7 @@ class TeamController {
             leader
         }
         const teamResp = await teamService.updateTeam(id,team);
-        return (teamResp.modifiedCount!=1) ? next(ErrorHandler.serverError('Failed To Update Team')) : res.json({success:true,message:'Team Has Been Created'})
+        return (teamResp.modifiedCount!=1) ? next(ErrorHandler.serverError('Failed To Update Team')) : res.json({success:true,message:'Team Updated'})
     }
 
     getTeams = async (req,res,next) =>
@@ -55,6 +57,16 @@ class TeamController {
         const team = await teamService.findTeam({_id:id});
         if(!team) return next(ErrorHandler.notFound('No Team Found'));
         res.json({success:true,message:'Team Found',data:new TeamDto(team)})
+    }
+
+    getTeamMembers = async (req,res,next) =>
+    {
+        const {id} = req.params;
+        if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid Team Id'));
+        const teams = await userService.findUsers({team:id});
+        if(!teams) return next(ErrorHandler.notFound('No Team Found'));
+        const data = teams.map((o)=> new UserDto(o));
+        res.json({success:true,message:'Team Found',data})
     }
 
     getCounts = async (req,res,next) =>

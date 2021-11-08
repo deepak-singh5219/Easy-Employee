@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAuth } from "../store/auth-slice";
 
 export const useAutoLogin = () =>

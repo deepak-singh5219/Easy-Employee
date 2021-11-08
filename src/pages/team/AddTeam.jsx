@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/navigation";
-import SideBar from "../../components/sidebar";
+import Navigation from "../../components/Navigation";
+import SideBar from "../../components/Sidebar";
 import { addTeam } from "../../http";
 
 const AddTeam = () =>
@@ -36,8 +36,7 @@ const AddTeam = () =>
         const fd = new FormData();
         Object.keys(formData).map((key)=>
         {
-            fd.append(key,formData[key]);
-            console.log(formData[key])
+            return fd.append(key,formData[key]);
         })
 
         console.log(fd);

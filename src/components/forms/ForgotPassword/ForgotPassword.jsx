@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
 import { setEmail } from "../../../store/auth-slice";
 import { forgotPassword } from "../../../http";
