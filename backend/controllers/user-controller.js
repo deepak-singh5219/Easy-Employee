@@ -68,6 +68,15 @@ class UserController {
         res.json({success:true,message:'Employee List Found',data:employees})
     }
 
+    getFreeEmployees = async (req,res,next) =>
+    {
+        const emps = await userService.findUsers({type:'employee',team:null});
+        if(!emps || emps.length<1) return next(ErrorHandler.notFound(`No Free Employee Found`));
+        const employees = emps.map((o)=> new UserDto(o));
+        res.json({success:true,message:'Free Employees List Found',data:employees})
+    }
+
+
     getUser = async (req,res,next) =>
     {
         const {id} = req.params;

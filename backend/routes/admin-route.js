@@ -7,6 +7,7 @@ const asyncMiddleware = require('../middlewares/async-middleware');
 router.post('/user',upload.single('profile'),asyncMiddleware(userController.createUser));
 router.patch('/user/:id',upload.single('profile'),asyncMiddleware(userController.updateUser));
 router.get('/employees',asyncMiddleware(userController.getUsers));
+router.get('/employees/free',asyncMiddleware(userController.getFreeEmployees));
 router.get('/employee/:id',asyncMiddleware(userController.getUser));
 router.get('/user/:id',asyncMiddleware(userController.getUserNoFilter));
 router.get('/admins',asyncMiddleware(userController.getUsers));
@@ -19,7 +20,7 @@ router.get('/teams',asyncMiddleware(teamController.getTeams));
 router.get('/team/:id',asyncMiddleware(teamController.getTeam));
 router.get('/team/:id/members',asyncMiddleware(teamController.getTeamMembers));
 router.patch('/team/member/add',asyncMiddleware(teamController.addMember));
-router.delete('/team/member/remove',asyncMiddleware(teamController.removeMember));
+router.patch('/team/member/remove',asyncMiddleware(teamController.removeMember));
 router.get('/counts',asyncMiddleware(teamController.getCounts));
 
 
