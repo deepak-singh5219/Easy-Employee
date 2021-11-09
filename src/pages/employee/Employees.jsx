@@ -23,8 +23,6 @@ const Employees = () =>
 
     return(
         <>
-        <Navigation/>
-        <SideBar/>
         <div className="main-content">
         <section className="section">
             <HeaderSection title='Employees'/>

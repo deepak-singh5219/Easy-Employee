@@ -27,6 +27,8 @@ import './assets/css/bootstrap.min.css';
 import './assets/css/style.css';
 import './assets/css/components.css';
 import Leaders from './pages/leader/Leaders';
+import SideBar from './components/Sidebar';
+import Navigation from './components/Navigation';
 // import './assets/css/asdfasdf';
 // import './assets/css/asdfasdf';
 
@@ -104,11 +106,15 @@ const GuestRoute = ({children,...rest}) =>
 
 const ProtectedRoute = ({children,...rest}) =>
 {
-  console.log(rest);
   const {isAuth} = useSelector((state)=>state.authSlice);
   return (
     <Route {...rest} render={({location})=>{
-      return isAuth ? (children ) : (
+      return isAuth ? (
+        <>
+          <SideBar/>
+          <Navigation/>
+          {children}
+        </>) : (
         <Redirect
           to={{
             pathname:'/',

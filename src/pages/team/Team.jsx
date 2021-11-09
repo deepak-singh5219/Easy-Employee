@@ -85,9 +85,6 @@ const Team = () => {
           </Modal>
         )
       }
-      <Navigation />
-      <SideBar />
-
       <div className="main-content">
         <section className="section">
           {

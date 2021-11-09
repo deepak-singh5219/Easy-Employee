@@ -97,8 +97,6 @@ const EditTeam = () =>
 
     return(
         <>
-        <Navigation/>
-        <SideBar/>
         <div className="main-content">
         <section className="section">
             <HeaderSection title='Edit Team'/>

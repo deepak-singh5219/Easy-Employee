@@ -8,8 +8,6 @@ const Home = () =>
         <>
           <div id="app">
             <div className="main-wrapper">
-              <Navigation/>
-              <SideBar/>
               <Main/>
             </div>
           </div>

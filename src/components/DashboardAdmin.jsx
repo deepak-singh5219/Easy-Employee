@@ -19,7 +19,6 @@ const DashboardAdmin = () =>
   },[])
 
   const {counts}  = useSelector((state)=>state.mainSlice);
-  console.log(counts);
   const {admin,employee,leader,team} = counts;
 
     return(

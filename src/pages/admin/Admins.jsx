@@ -24,8 +24,6 @@ const AdminsPage = () =>
 
     return(
         <>
-        <Navigation/>
-        <SideBar/>
         <div className="main-content">
         <section className="section">
             <HeaderSection title='Admins'/>

@@ -26,8 +26,6 @@ const Employee = () =>
 
     return(
         <>
-        <Navigation/>
-        <SideBar/>
         <div className="main-content">
         <section className="section">
             <div className="section-header  d-flex justify-content-between">

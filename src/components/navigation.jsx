@@ -16,7 +16,7 @@ const Navigation = () =>
     {
         await dLogout();
         dispatch(setAuth(null))
-        history.push('/');
+        return history.push('/login');
     }
 
     return(
