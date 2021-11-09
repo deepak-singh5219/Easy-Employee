@@ -1,4 +1,4 @@
-import Main from "../components/DashboardAdmin";
+import Main from "../components/dashboard/Dashboard";
 
 const Home = () =>
 {

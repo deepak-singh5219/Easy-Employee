@@ -1,4 +1,6 @@
 
+
+
 ### Target Management
 
 The main motive of to build this application to manage the employee, teams, leaders, and targets of your company.
@@ -12,6 +14,71 @@ Using this script you can track your employee targets etc.. export the details i
 - Live previews
 - Fullscreen mode
 - Cross platform
+
+## Roles
+- Admin
+- Leader
+- Employee
+
+## Current Backend Features
+### Auth
+- Login
+- Forgot Password
+- Reset Password
+- Logout
+- Refresh Access Token
+### Admin
+- Create User
+- Update User
+- Employees
+- Free Employees
+- Employee
+- User - No Filter (Admin,Leader,Employee)
+- Admins
+- Admin
+- Leaders
+- Leader
+- Create Team
+- Update Team
+- Teams
+- Team
+- Team Members
+- Add Team Member
+- Remove Team Member
+- Counts
+
+### Leader
+- Update Self Account
+### Employee
+- Update Self Account
+
+## Flow Chart
+
+```mermaid
+graph LR
+A[User] --> B[Admin] --> Login(Login) -- with admin privilege --> F[Admin]
+Login(Login) -- with leader privilege --> LoginLeader[Leader]
+Login(Login) -- with employee privilege --> LoginEmployee[Employee]
+F[Admin] --> Add[Add]
+Add[Add] --> AddAdmin[Admin]
+Add[Add] --> AddLeader[Leader]
+Add[Add] --> AddEmployee[Employee]
+Add[Add] --> AddTeam[Team]
+LoginLeader[Leader]--> View[View]
+View[View] --> ViewMembers[Members]
+View[View] --> ViewTeamStatus[Team Status]
+LoginLeader[Leader]--> LeaderEdit[Edit]
+LeaderEdit[Edit] --> EditTeam[Team Iformation]
+F[Admin] --> Edit[Edit] --> Admin[Admin]
+Edit[Edit] --> Leader[Leader]
+Edit[Edit] --> Employee[Employee]
+Edit[Edit] --> Team[Team]
+LoginEmployee[Employee]-->updateself[Update Self]
+LoginEmployee[Employee]-->Track[View Self Ranking]
+LoginEmployee[Employee]--> ViewTar[View Target Paid Amount]
+A[User] --> C[Leader]--> Login(Login)
+A[User] --> D[Employee]--> Login(Login)
+```
 
 
 ## Screenshots
