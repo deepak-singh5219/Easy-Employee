@@ -1,6 +1,4 @@
 import Main from "../components/DashboardAdmin";
-import Navigation from "../components/Navigation";
-import SideBar from "../components/Sidebar";
 
 const Home = () =>
 {

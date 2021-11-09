@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
-import SideBar from "../../components/Sidebar";
 import { updateUser,getUser } from "../../http";
 
 const EditUser = () =>

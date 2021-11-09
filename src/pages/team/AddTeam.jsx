@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
-import SideBar from "../../components/Sidebar";
 import { addTeam } from "../../http";
 
 const AddTeam = () =>

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
 import RowLeader from "../../components/rows/row-leader";
-import SideBar from "../../components/Sidebar";
 import { getLeaders } from "../../http";
 
 const Leaders = () =>

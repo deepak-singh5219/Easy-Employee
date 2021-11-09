@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
 import RowAdmin from "../../components/rows/row-admin";
-import SideBar from "../../components/Sidebar";
 import { getAdmins } from "../../http";
 
 const AdminsPage = () =>

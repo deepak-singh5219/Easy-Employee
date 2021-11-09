@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import CountsCard from "../../components/dashboard/CountsCard";
-import Navigation from "../../components/Navigation";
 import RowMember from "../../components/rows/row-member";
-import SideBar from "../../components/Sidebar";
 import Modal from '../../components/modal/Modal';
 import { getFreeEmployees, getTeam, getTeamMembers } from "../../http";
 import { ToastContainer } from "react-toastify";
@@ -27,7 +25,6 @@ const Team = () => {
 
   const { id } = useParams();
   useEffect(() => {
-
     (async () => {
       const res = await getTeam(id);
       if (res.success) {

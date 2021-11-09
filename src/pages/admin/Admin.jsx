@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import Navigation from "../../components/Navigation";
-import SideBar from "../../components/Sidebar";
 import { getUser } from "../../http";
 
 const Admin = () =>

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
 import RowEmployee from "../../components/rows/row-employee";
-import SideBar from "../../components/Sidebar";
 import { getEmployees } from "../../http";
 
 const Employees = () =>

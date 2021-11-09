@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
-import Navigation from "../../components/Navigation";
-import SideBar from "../../components/Sidebar";
 import { addUser } from "../../http";
 
 const AddUser = () =>
