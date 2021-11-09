@@ -1,12 +1,11 @@
-import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
 import { removeMember} from "../../http/index";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setFreeEmployees, setTeamMembers } from "../../store/user-slice";
 import { useSelector } from "react-redux";
 import { updateEmployeeCount } from "../../store/team-slice";
+import { toast } from "react-toastify";
 
 
 const RowMember = ({index,data}) =>
@@ -18,18 +17,16 @@ const RowMember = ({index,data}) =>
     const remove = async () =>
     {
         const res = await removeMember({userId:data.id});
-        if(res.status===200 && res.data.success)
+        if(res.success)
         {
-            toast.success(res.data.message);
+            toast.success(res.message);
             dispatch(updateEmployeeCount('DECREMENT'));
-            dispatch(setTeamMembers(teamMembers.filter(member => member.id!=data.id )));
+            dispatch(setTeamMembers(teamMembers.filter(member => member.id!==data.id )));
             if(freeEmployees)
                     dispatch(setFreeEmployees([...freeEmployees,data]));
                 else
                     dispatch(setFreeEmployees([data]));
-        }
-        else
-            toast.error(res.data.message);
+        }   
     }
 
     const showDialog = () =>

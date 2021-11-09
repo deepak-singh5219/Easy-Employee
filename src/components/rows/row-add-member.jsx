@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import swal from 'sweetalert';
 import { toast } from "react-toastify";
 import { addMember } from "../../http";
@@ -17,18 +16,16 @@ const RowAddMember = ({index,data}) =>
   const add = async () =>
   {
         const res = await addMember({userId:data.id,teamId:team.id});
-        if(res.status===200 && res.data.success)
+        if(res.success)
         {
-            toast.success(res.data.message);
+            toast.success(res.message);
             removeMemberFromStore(data.id);
         }
-        else
-            toast.error(res.data.message);
   }
 
   const removeMemberFromStore = (id) =>
   {
-      dispatch(setFreeEmployees(freeEmployees.filter(data=> data.id!=id)));
+      dispatch(setFreeEmployees(freeEmployees.filter(data=> data.id!==id)));
       dispatch(setTeamMembers([...teamMembers,data]));
       dispatch(updateEmployeeCount('INCREMENT'));
   }

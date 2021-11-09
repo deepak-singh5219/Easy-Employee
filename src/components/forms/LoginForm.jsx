@@ -3,12 +3,11 @@ import { NavLink } from "react-router-dom";
 import { doLogin } from "../../http";
 import { useDispatch } from "react-redux";
 import {setAuth} from '../../store/auth-slice';
+import { toast } from "react-toastify";
 
 const LoginForm = () =>
 {  
     const dispatch = useDispatch();
-    const [message,setMessage] = useState('');
-    console.log(message);
     const [formData,setFormData] = useState({
         email:'info.umairfarooqui@gmail.com',
         password:'farooqui'
@@ -30,18 +29,11 @@ const LoginForm = () =>
     {
         e.preventDefault();
         const {email,password} = formData;
-        if(!email || !password) return;
+        if(!email || !password) return toast.error('All Fields Required');
         const res = await doLogin({email,password});
-        const {success,message,user} = res.data;
-        if(res.status===200)
-        {
-           if(success)
-           {
-            if(res.data.success)
-                dispatch(setAuth(user));
-           }
-        }
-        setMessage(message);
+        const {success} = res;
+        if(success)
+            dispatch(setAuth(res.user));
     }
 
     return(

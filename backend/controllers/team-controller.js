@@ -112,7 +112,7 @@ class TeamController {
             leader,
             team
         }
-        res.json({success:false,message:'Counts Found',data})
+        res.json({success:true,message:'Counts Found',data})
     }
 
 }

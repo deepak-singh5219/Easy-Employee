@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
 import SideBar from "../../components/Sidebar";
-import { updateUser,getUser, updateTeam } from "../../http";
+import { updateUser,getUser } from "../../http";
 
 const EditUser = () =>
 {
-    const [imagePreview, setImagePreview] = useState('http://localhost:5500/storage/images/profile/profile-1636215026196-734067891umair.jpg');
-    const [formData,setFormData] = useState({
+    const initialState = {
         name:'',
         email:'',
         mobile:'',
@@ -18,7 +18,9 @@ const EditUser = () =>
         address:'',
         profile:'',
         status:''
-    });
+    };
+    const [imagePreview, setImagePreview] = useState('/assets/icons/user.png');
+    const [formData,setFormData] = useState(initialState);
 
     const [updateFormData,setUpdatedFormData] = useState({});
 
@@ -28,10 +30,13 @@ const EditUser = () =>
     
     useEffect(()=>{
         (async()=>{
-            const {data} = await getUser(id);
-            setUserType(data.data.type);
-            setFormData(data.data)
-            setImagePreview(data.data.image)
+            const res = await getUser(id);
+            if(res.success)
+            {
+                setUserType(res.data.type);
+                setFormData(res.data)
+                setImagePreview(res.data.image);
+            }
         })();
     },[id])
 
@@ -58,10 +63,6 @@ const EditUser = () =>
     const onSubmit = async (e) =>
     {
         e.preventDefault();
-
-        console.log(updateFormData);
-
-
         // const {name,email,mobile,password,type,address,profile} = formData;
         // if(!name || !email || !mobile || !password || !type || !address || !profile) return;
 
@@ -70,7 +71,8 @@ const EditUser = () =>
         {
             return fd.append(key,updateFormData[key]);
         })
-        const res = await updateUser(id,fd);
+        const {success,message} = await updateUser(id,fd);
+        return (success) ? toast.success(message) : toast.error(message)
     }
 
     const captureImage = (e) =>

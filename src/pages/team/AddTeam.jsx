@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
 import SideBar from "../../components/Sidebar";
@@ -6,12 +7,9 @@ import { addTeam } from "../../http";
 
 const AddTeam = () =>
 {
+    const initialState = {name:'',description:'',image:''};
     const [imagePreview, setImagePreview] = useState('/assets/icons/team.png');
-    const [formData,setFormData] = useState({
-        name:'',
-        description:'',
-        image:''
-    });
+    const [formData,setFormData] = useState(initialState);
 
     const inputEvent = (e) =>
     {
@@ -22,7 +20,6 @@ const AddTeam = () =>
                 ...old,
                 [name]:value
             }
-
         })
     }
 
@@ -31,17 +28,20 @@ const AddTeam = () =>
         e.preventDefault();
 
         const {name,description} = formData;
-        if(!name || !description) return;
+        if(!name || !description) return toast.error('All Field Required');;
 
         const fd = new FormData();
         Object.keys(formData).map((key)=>
         {
             return fd.append(key,formData[key]);
         })
-
-        console.log(fd);
         const res = await addTeam(fd);
-        console.log(res);
+        if(res.success)
+        {
+            setFormData({...initialState});
+            setImagePreview('/assets/icons/team.png');
+            toast.success(res.message);
+        }
     }
 
     const captureImage = (e) =>
@@ -57,10 +57,7 @@ const AddTeam = () =>
         })
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onloadend = () =>
-        {
-            setImagePreview(reader.result);
-        }
+        reader.onloadend = () => setImagePreview(reader.result);
     }
 
     return(

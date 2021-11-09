@@ -12,9 +12,9 @@ const DashboardAdmin = () =>
   useEffect(()=>{
     (async ()=>
     {
-      const {data} = await getCounts();
-      console.log(data);
-      dispatch(setCount(data.data));
+      const res = await getCounts();
+      if(res.success)
+        dispatch(setCount(res.data));
     })();
   },[])
 

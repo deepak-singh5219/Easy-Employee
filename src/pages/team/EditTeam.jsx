@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
 import SideBar from "../../components/Sidebar";
@@ -7,7 +8,7 @@ import { getTeam, updateTeam } from "../../http";
 
 const EditTeam = () =>
 {
-    const [imagePreview, setImagePreview] = useState('http://localhost:5500/storage/images/profile/profile-1636215026196-734067891umair.jpg');
+    const [imagePreview, setImagePreview] = useState('/assets/icons/team.png');
     const [formData,setFormData] = useState({
         name:'',
         description:'',
@@ -21,9 +22,12 @@ const EditTeam = () =>
 
     useEffect(()=>{
         (async () =>{
-            const {data} = await getTeam(id);
-            setFormData(data.data);
-            setImagePreview(data.data.image)
+            const res = await getTeam(id);
+            if(res.success)
+            {
+                setFormData(res.data);
+                setImagePreview(res.data.image)
+            }
         })();
     },[id])
 
@@ -53,7 +57,7 @@ const EditTeam = () =>
         e.preventDefault();
 
         const {name,description} = formData;
-        if(!name || !description) return;
+        if(!name || !description) return toast.error('All Fields Required');
 
         const fd = new FormData();
         Object.keys(updateFormData).map((key)=>
@@ -61,6 +65,7 @@ const EditTeam = () =>
             return fd.append(key,updateFormData[key]);
         })
         const res = await updateTeam(id,fd);
+        return res.success && toast.success(res.message);
     }
 
     const captureImage = (e) =>
@@ -72,7 +77,6 @@ const EditTeam = () =>
                 ...old,
                 image:file
             }
-
         })
 
         setUpdatedFormData((old)=>
@@ -81,7 +85,6 @@ const EditTeam = () =>
                 ...old,
                 image:file
             }
-
         })
         
         const reader = new FileReader();

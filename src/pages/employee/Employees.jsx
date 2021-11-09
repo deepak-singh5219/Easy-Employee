@@ -12,10 +12,10 @@ const Employees = () =>
 
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getEmployees();
-            if(data.success)
+            const res = await getEmployees();
+            if(res.success)
             {
-                setUsers(data.data);
+                setUsers(res.data);
                 setLoading(false);
             }
         })();

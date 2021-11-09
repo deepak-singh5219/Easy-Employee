@@ -6,8 +6,6 @@ import { getUser } from "../../http";
 
 const Employee = () =>
 {
-    const [loading,setLoading] = useState(false);
-    console.log(loading)
     const [user,setUser] = useState({
         name:'',
         email:'',
@@ -17,15 +15,11 @@ const Employee = () =>
         status:''
     });
     const {id} = useParams();
-    console.log(useParams())
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getUser(id);
-            if(data.success)
-            {
-                setUser(data.data);
-                setLoading(false);
-            }
+            const res = await getUser(id);
+            if(res.success)
+                setUser(res.data);
         })();
     },[id])
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
-import RowEmployee from "../../components/rows/row-employee";
 import RowLeader from "../../components/rows/row-leader";
 import SideBar from "../../components/Sidebar";
 import { getLeaders } from "../../http";
@@ -13,10 +12,10 @@ const Leaders = () =>
 
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getLeaders();
-            if(data.success)
+            const res = await getLeaders();
+            if(res.success)
             {
-                setUsers(data.data);
+                setUsers(res.data);
                 setLoading(false);
             }
         })();

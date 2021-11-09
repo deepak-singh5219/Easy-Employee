@@ -13,10 +13,10 @@ const AdminsPage = () =>
 
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getAdmins();
-            if(data.success)
+            const res= await getAdmins();
+            if(res.success)
             {
-                setUsers(data.data);
+                setUsers(res.data);
                 setLoading(false);
             }
         })();

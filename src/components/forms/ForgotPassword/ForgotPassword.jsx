@@ -2,6 +2,7 @@ import { useState } from "react";
 import {useSelector,useDispatch} from 'react-redux';
 import { setEmail } from "../../../store/auth-slice";
 import { forgotPassword } from "../../../http";
+import { toast } from "react-toastify";
 
 const ForgotPassword = ({onNext}) =>
 {
@@ -12,10 +13,16 @@ const ForgotPassword = ({onNext}) =>
     {
         e.preventDefault();
         if(!emailAddress) return;
-        const {data} = await forgotPassword({email:emailAddress});
-        if(!data.success) return;
-        dispatch(setEmail(emailAddress))
-        onNext();
+        const res = await forgotPassword({email:emailAddress});
+        if(res.success)
+        {
+            toast.error(res.message);
+            dispatch(setEmail(emailAddress))
+            onNext();
+        }
+        else
+            toast.error(res.message);
+        
     }
     return(
         <div id="app">

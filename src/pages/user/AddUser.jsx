@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
 import Navigation from "../../components/Navigation";
 import SideBar from "../../components/Sidebar";
@@ -7,15 +8,8 @@ import { addUser } from "../../http";
 const AddUser = () =>
 {
     const [imagePreview, setImagePreview] = useState('/assets/icons/user.png');
-    const [formData,setFormData] = useState({
-        name:'',
-        email:'',
-        mobile:'',
-        password:'',
-        type:'Employee',
-        address:'',
-        profile:''
-    });
+    const initialState = {name:'',email:'',mobile:'',password:'',type:'Employee',address:'',profile:''}
+    const [formData,setFormData] = useState(initialState);
 
     const inputEvent = (e) =>
     {
@@ -35,16 +29,21 @@ const AddUser = () =>
         e.preventDefault();
 
         const {name,email,mobile,password,type,address,profile} = formData;
-        if(!name || !email || !mobile || !password || !type || !address || !profile) return;
-
+        if(!name || !email || !mobile || !password || !type || !address) return toast.error('All Field Required');
+        if(!profile) return toast.error('Please choose an image');
         const fd = new FormData();
         Object.keys(formData).map((key)=>
         {
             return fd.append(key,formData[key]);
         })
         console.log(fd);
-        const res = await addUser(fd);
-        console.log(res);
+        const {success,message} = await addUser(fd);
+        if(success)
+        {
+            toast.success(message)
+            setFormData({...initialState});
+            setImagePreview('/assets/icons/user.png');
+        }
     }
 
     const captureImage = (e) =>
@@ -68,6 +67,7 @@ const AddUser = () =>
 
     return(
         <>
+        <ToastContainer/>
         <Navigation/>
         <SideBar/>
         <div className="main-content">

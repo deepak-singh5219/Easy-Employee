@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const api = axios.create({
     baseURL:'http://localhost:5500/api',
@@ -25,5 +26,13 @@ export const getTeam = data => api.get(`/admin/team/${data}`);
 export const removeMember = data => api.patch('/admin/team/member/remove',data);
 export const addMember = data => api.patch('/admin/team/member/add',data);
 export const getUser = data => api.get(`/admin/user/${data}`);
+
+api.interceptors.response.use((response)=>{
+    return response.data;
+},(error)=>{
+    console.log(error.response.data);
+    toast.error(error.response.data.message)
+    return error.response.data;
+})
 
 export default api;

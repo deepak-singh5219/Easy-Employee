@@ -11,16 +11,16 @@ import { setTeamMembers } from "../../store/user-slice";
 const Teams = () =>
 {
   const dispatch = useDispatch();
-  dispatch(setTeam(null));
-  dispatch(setTeamMembers(null))
+    dispatch(setTeam(null));
+    dispatch(setTeamMembers(null))
     const [loading,setLoading] = useState(true);
     const [teams,setTeams] = useState({});
     useEffect(()=>{
         (async ()=>{
-            const {data} = await getTeams();
-            if(data.success)
+            const res = await getTeams();
+            if(res.success)
             {
-                setTeams(data.data);
+                setTeams(res.data);
                 setLoading(false);
             }
         })();

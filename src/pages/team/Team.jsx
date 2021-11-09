@@ -27,16 +27,17 @@ const Team = () => {
 
   const { id } = useParams();
   useEffect(() => {
+
     (async () => {
-      const { data } = await getTeam(id);
-      if (data.success) {
-        dispatch(setTeam(data.data));
-        dispatch(setTeamInformation(data.data.information));
+      const res = await getTeam(id);
+      if (res.success) {
+        dispatch(setTeam(res.data));
+        dispatch(setTeamInformation(res.data.information));
         setLoading(false);
       }
-      const res = await getTeamMembers(id);
-      if (res.data.success) {
-        dispatch(setTeamMembers(res.data.data))
+      const res1 = await getTeamMembers(id);
+      if (res1.success) {
+        dispatch(setTeamMembers(res1.data))
         setMembersLoading(false);
       }
     })();
@@ -45,15 +46,13 @@ const Team = () => {
   const modalAction = async () => {
     setShowModal(showModal ? false : true);
     if (!freeApiCalled) {
-      const { data } = await getFreeEmployees();
-      if (data.success) {
-        dispatch(setFreeEmployees(data.data));
+      const res = await getFreeEmployees();
+      if (res.success) {
+        dispatch(setFreeEmployees(res.data));
       }
       setFreeApiCalled(true);
     }
   }
-
-
 
   return (
     <>

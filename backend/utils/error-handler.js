@@ -16,7 +16,7 @@ class ErrorHandler extends Error{
 
     static badRequest = (message='Bad Request') =>
     {
-       return new ErrorHandler(message,200);
+       return new ErrorHandler(message,400);
     }
 
     static notFound = (message='Resourse Not Found') =>
