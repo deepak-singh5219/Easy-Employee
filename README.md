@@ -54,32 +54,7 @@ Using this script you can track your employee targets etc.. export the details i
 
 ## Flow Chart
 
-```mermaid
-graph LR
-A[User] --> B[Admin] --> Login(Login) -- with admin privilege --> F[Admin]
-Login(Login) -- with leader privilege --> LoginLeader[Leader]
-Login(Login) -- with employee privilege --> LoginEmployee[Employee]
-F[Admin] --> Add[Add]
-Add[Add] --> AddAdmin[Admin]
-Add[Add] --> AddLeader[Leader]
-Add[Add] --> AddEmployee[Employee]
-Add[Add] --> AddTeam[Team]
-LoginLeader[Leader]--> View[View]
-View[View] --> ViewMembers[Members]
-View[View] --> ViewTeamStatus[Team Status]
-LoginLeader[Leader]--> LeaderEdit[Edit]
-LeaderEdit[Edit] --> EditTeam[Team Iformation]
-F[Admin] --> Edit[Edit] --> Admin[Admin]
-Edit[Edit] --> Leader[Leader]
-Edit[Edit] --> Employee[Employee]
-Edit[Edit] --> Team[Team]
-LoginEmployee[Employee]-->updateself[Update Self]
-LoginEmployee[Employee]-->Track[View Self Ranking]
-LoginEmployee[Employee]--> ViewTar[View Target Paid Amount]
-A[User] --> C[Leader]--> Login(Login)
-A[User] --> D[Employee]--> Login(Login)
-```
-
+![Flow Chart](https://i.imgur.com/UNjKC7b.png "Flow Chart")
 
 ## Screenshots
 
