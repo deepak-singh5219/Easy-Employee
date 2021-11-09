@@ -54,7 +54,7 @@ Using this script you can track your employee targets etc.. export the details i
 
 ## Flow Chart
 
-![Flow Chart](https://i.imgur.com/UNjKC7b.png "Flow Chart")
+![Flow Chart](https://i.imgur.com/mFeSGwq.png "Flow Chart")
 
 ## Screenshots
 
