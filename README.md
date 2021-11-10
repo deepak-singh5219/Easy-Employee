@@ -27,6 +27,7 @@ Using this script you can track your employee targets etc.. export the details i
 - Reset Password
 - Logout
 - Refresh Access Token
+
 ### Admin
 - Create User
 - Update User
@@ -44,6 +45,8 @@ Using this script you can track your employee targets etc.. export the details i
 - Team
 - Team Members
 - Add Team Member
+- Remove Team Member
+- Add Team Leader
 - Remove Team Member
 - Counts
 
