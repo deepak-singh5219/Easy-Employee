@@ -90,7 +90,6 @@ const Team = () => {
               <div className="section-header  d-flex justify-content-between">
                 <h1>Team</h1>
                 <div>
-
                   <NavLink to={`/editteam/${id}`} className='btn btn-primary mr-4'>Edit Team</NavLink>
                   <button onClick={modalAction} className='btn btn-primary'>Add Member</button>
                 </div>
@@ -117,6 +116,22 @@ const Team = () => {
                         <tr>
                           <th>Description</th>
                           <td>{team.description}</td>
+                        </tr>
+                        <tr>
+                          <th>Leader</th>
+                          <td>
+                            { team.leader ?
+                                <NavLink to={`/team/${team.leader.id}`} className='badge  badge-primary' style={{padding:'0px 10px 0px 0px'}}>
+                                <img src={team.leader.image} className='avatar avatar-sm mr-2' alt="Person" width="96" height="96"/>
+                                {team.leader.name}
+                            </NavLink>
+                            :
+                            <button className='badge  badge-light btn' style={{padding:'0px 10px 0px 0px'}}>
+                                <img src='../assets/icons/user.png' className='avatar avatar-sm mr-2' alt="Person"/>
+                                No Leader
+                            </button> 
+                            }
+                        </td>
                         </tr>
                       </tbody>
                     </table>

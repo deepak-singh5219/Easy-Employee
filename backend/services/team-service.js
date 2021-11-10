@@ -12,6 +12,7 @@ class TeamService{
 
     updateTeam = async (_id,data) => await TeamModel.updateOne({_id},data,{ runValidators: true });
     
+    
 
 }
 

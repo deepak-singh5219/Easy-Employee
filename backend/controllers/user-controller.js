@@ -121,6 +121,20 @@ class UserController {
         res.json({success:true,message:'User Found',data:new UserDto(emp)})
     }
 
+    getLeaders = async (req,res,next) =>
+    {
+        const leaders = await userService.findLeaders();
+        const data = leaders.map((o)=>new UserDto(o));
+        res.json({success:true,message:'Leaders Found',data})
+    }
+
+    getFreeLeaders = async (req,res,next) =>
+    {
+        const leaders = await userService.findFreeLeaders();
+        const data = leaders.map((o)=>new UserDto(o));
+        res.json({success:true,message:'Free Leaders Found',data})
+    }
+
 
 }
 

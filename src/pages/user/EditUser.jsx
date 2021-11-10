@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
 import { updateUser,getUser } from "../../http";
+import Modal from '../../components/modal/Modal';
 
 const EditUser = () =>
 {
@@ -19,7 +20,7 @@ const EditUser = () =>
     };
     const [imagePreview, setImagePreview] = useState('/assets/icons/user.png');
     const [formData,setFormData] = useState(initialState);
-
+    const [showModal,setShowModal] = useState(false);
     const [updateFormData,setUpdatedFormData] = useState({});
 
     const [userType,setUserType] = useState('User');
@@ -61,8 +62,9 @@ const EditUser = () =>
     const onSubmit = async (e) =>
     {
         e.preventDefault();
-        // const {name,email,mobile,password,type,address,profile} = formData;
-        // if(!name || !email || !mobile || !password || !type || !address || !profile) return;
+        console.log(updateFormData.type)
+        console.log(formData.type)
+        if(updateFormData.type && !showModal) return setShowModal(true);
 
         const fd = new FormData();
         Object.keys(updateFormData).map((key)=>
@@ -70,7 +72,7 @@ const EditUser = () =>
             return fd.append(key,updateFormData[key]);
         })
         const {success,message} = await updateUser(id,fd);
-        return (success) ? toast.success(message) : toast.error(message)
+        return (success) && toast.success(message)
     }
 
     const captureImage = (e) =>
@@ -100,15 +102,58 @@ const EditUser = () =>
             setImagePreview(reader.result);
         }
     }
+    const modalAction = () => setShowModal(showModal? false : true);
 
     return(
         <>
+        {
+            showModal && 
+            <Modal close={modalAction} title="Update User">
+                <div className="row">
+                    <div className="col col-md-4">
+                        <div className="input-group justify-content-center text-center">
+                            <img className='rounded' src={imagePreview} width='120' alt="" /> 
+                        </div>
+                    </div>
+                    <div className="col col-md-8">
+                        <table className='table table-md'>
+                            <tr>
+                                <th>Name</th>
+                                <td>{formData.name}</td>
+                            </tr> 
+                            <tr>
+                                <th>Email</th>
+                                <td>{formData.email}</td>
+                            </tr>
+                            <tr>
+                                <th>User Type</th>
+                                <td>{formData.type}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div className="form-group col-md-12">
+                    <label>Enter Your Password</label>
+                    <div className="input-group">
+                        <div className="input-group-prepend">
+                        <div className="input-group-text">
+                            <i className="fas fa-lock"></i>
+                        </div>
+                        </div>
+                        <input onChange={inputEvent} value={formData.adminPassword} type="password" placeholder={`Enter Your Password To Change ${formData.name}'s Type`} id='adminPassword' name='adminPassword' className="form-control"/>
+                    </div>
+                </div>
+                <div className="justify-content-center text-center mb-3">
+                    <button className='btn btn-primary btn-lg' type='submit' form='updateUserForm' style={{width:'30vh'}}>Add {formData.type}</button>
+                </div>
+            </Modal>
+        }
         <div className="main-content">
         <section className="section">
             <HeaderSection title={`Edit ${userType}`}/>
                 <div className="card">
                   <div className="card-body pr-5 pl-5 m-1">
-                    <form className='row' onSubmit={onSubmit}>
+                    <form className='row' onSubmit={onSubmit} id='updateUserForm'>
                         <div className="form-group col-md-12 text-center">
                             <div className="input-group justify-content-center">
                                 <input type="file" id='profile' name='profile' className="form-control d-none" onChange={captureImage} accept="image/*" />

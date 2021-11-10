@@ -12,9 +12,10 @@
 }
 
 .modalBody{
-    width: 70%;
+    /* width: 70%; */
+    width: 75%;
     max-width: 1000px;
     background: white;
     max-height: 80vh;
-    overflow: scroll;
+    overflow: auto;
 }

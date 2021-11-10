@@ -21,7 +21,7 @@ class UserDto{
         this.type = user.type && user.type.charAt(0).toUpperCase() + user.type.slice(1),
         this.address = user.address,
         this.status = user.status && user.status.charAt(0).toUpperCase()+user.status.slice(1),
-        this.team = user.team && user.team.name && new TeamDto(user.team);
+        this.team = user.team && new TeamDto(Array.isArray(user.team) && user.team.length>0 ? user.team[0] : user.team);
     }
 
 }

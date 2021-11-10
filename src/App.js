@@ -109,6 +109,7 @@ const ProtectedRoute = ({children,...rest}) =>
   const {isAuth} = useSelector((state)=>state.authSlice);
   return (
     <Route {...rest} render={({location})=>{
+      console.log(children)
       return isAuth ? (
         <>
           <SideBar/>

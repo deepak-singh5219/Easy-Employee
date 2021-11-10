@@ -19,6 +19,33 @@ class UserService {
 
     updatePassword = async (_id,password) => await UserModel.updateOne({_id},{password});
 
+    findLeaders = async (req,res,next) =>  await UserModel.aggregate([
+    {$match: { "type": 'leader' }},
+    {
+        $lookup:
+        {
+            from: "teams",
+            localField: "_id",
+            foreignField: "leader",
+            as: "team"
+        }
+    }
+    ])
+
+    findFreeLeaders = async (req,res,next) =>  await UserModel.aggregate([
+    {$match: { "type": 'leader' }},
+    {
+        $lookup:
+        {
+            from: "teams",
+            localField: "_id",
+            foreignField: "leader",
+            as: "team"
+        }
+    },
+    {$match: { "team": {$eq:[]} }}
+    ])
+
 }
 
 
