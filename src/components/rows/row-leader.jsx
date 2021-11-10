@@ -11,7 +11,7 @@ const RowLeader = ({index,data}) =>
             <td>{data.mobile}</td>
             <td><div className={`badge ${data.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
             <td>
-                { data.team ?
+                { data.team && Object.keys(data.team).length!==0 ?
                     <NavLink to={`/team/${data.team.id}`} className='badge  badge-primary' style={{padding:'0px 10px 0px 0px'}}>
                     <img src={data.team.image} className='avatar avatar-sm mr-2' alt="Person" width="96" height="96"/>
                     {data.team.name}

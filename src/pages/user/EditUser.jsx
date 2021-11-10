@@ -108,8 +108,8 @@ const EditUser = () =>
         <>
         {
             showModal && 
-            <Modal close={modalAction} title="Update User">
-                <div className="row">
+            <Modal close={modalAction} title="Update User" width='35%'>
+                <div className="row" style={{margin:'20px'}}>
                     <div className="col col-md-4">
                         <div className="input-group justify-content-center text-center">
                             <img className='rounded' src={imagePreview} width='120' alt="" /> 

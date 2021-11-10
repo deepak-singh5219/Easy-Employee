@@ -1,9 +1,11 @@
 const { createSlice } = require("@reduxjs/toolkit")
 
 const initialState = {
-    team:null,
-    teamInformation:{
-        employee:0
+    team:{
+        leader:null,
+        information:{
+            employee:0
+        }
     }
 }
 
@@ -15,17 +17,21 @@ export const teamSlice = createSlice({
         {
             state.team = action.payload;
         },
+        setTeamLeader : (state,action) =>
+        {
+            state.team.leader = action.payload;
+        },
         setTeamInformation:(state,action) =>
         {
-            state.teamInformation = action.payload;
+            state.team.information = action.payload;
         },
         updateEmployeeCount : (state,action) =>
         {
             if(action.payload==='INCREMENT')
-                state.teamInformation.employee = state.teamInformation.employee+1;
+                state.team.information.employee = state.team.information.employee+1;
             else if(action.payload==='DECREMENT')
             {
-                state.teamInformation.employee = state.teamInformation.employee-1;
+                state.team.information.employee = state.team.information.employee-1;
             }
             else
                 console.log('No Matching Action Found');
@@ -34,5 +40,5 @@ export const teamSlice = createSlice({
 })
 
 
-export const {setTeam,setTeamInformation,updateEmployeeCount} = teamSlice.actions;
+export const {setTeam,setTeamInformation,updateEmployeeCount,setTeamLeader} = teamSlice.actions;
 export default teamSlice.reducer;

@@ -6,13 +6,17 @@ const api = axios.create({
     withCredentials:true
 })
 
+//Auth
 export const doLogin = data => api.post('/auth/login',data);
 export const forgotPassword = data => api.post('/auth/forgot',data);
 export const resetPassword = data => api.patch('/auth/reset',data);
 export const dLogout = () => api.get('/auth/logout');
+
+//Admin
 export const getCounts = () => api.get('/admin/counts');
 export const getEmployees = () => api.get('/admin/employees');
 export const getLeaders = () => api.get('/admin/leaders');
+export const getFreeLeaders = () => api.get('/admin/leaders/free');
 export const getAdmins = () => api.get('/admin/admins');
 export const getTeams = () => api.get('/admin/teams');
 export const getTeamMembers = data => api.get(`/admin/team/${data}/members`);
@@ -25,6 +29,8 @@ export const getFreeEmployees = () => api.get('/admin/employees/free');
 export const getTeam = data => api.get(`/admin/team/${data}`);
 export const removeMember = data => api.patch('/admin/team/member/remove',data);
 export const addMember = data => api.patch('/admin/team/member/add',data);
+export const removeLeader = data => api.patch('/admin/team/leader/remove',data);
+export const addLeader = data => api.patch('/admin/team/leader/add',data);
 export const getUser = data => api.get(`/admin/user/${data}`);
 
 api.interceptors.response.use((response)=>{

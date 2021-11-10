@@ -1,27 +1,28 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import CountsCard from "../../components/dashboard/CountsCard";
-import RowMember from "../../components/rows/row-member";
-import Modal from '../../components/modal/Modal';
-import { getFreeEmployees, getTeam, getTeamMembers } from "../../http";
-import { ToastContainer } from "react-toastify";
+import CountsCard from "../../../components/dashboard/CountsCard";
+import RowMember from "../../../components/rows/row-member";
+import { getFreeEmployees, getTeam, getTeamMembers, getFreeLeaders } from "../../../http";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { setTeam, setTeamInformation } from '../../store/team-slice';
-import { setFreeEmployees, setTeamMembers } from '../../store/user-slice';
-import RowAddMember from "../../components/rows/row-add-member";
+import { setTeam, setTeamInformation } from '../../../store/team-slice';
+import { setFreeEmployees, setTeamMembers,setFreeLeaders } from '../../../store/user-slice';
+import LeaderModal from "./modal/LeaderModal";
+import LeadersModal from "./modal/LeadersModal";
+import MembersModal from "./modal/MembersModal";
 
 const Team = () => {
   const dispatch = useDispatch();
   const { team } = useSelector(state => state.teamSlice);
   const { teamMembers } = useSelector(state => state.userSlice);
-  const { teamInformation } = useSelector(state => state.teamSlice);
-  const { freeEmployees } = useSelector(state => state.userSlice);
 
   const [loading, setLoading] = useState(true);
   const [freeApiCalled, setFreeApiCalled] = useState(false);
+  const [freeLeaderCalled, setFreeLeaderApiCalled] = useState(false);
   const [membersLoading, setMembersLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showLeaderModal,setShowLeaderModal] = useState(false);
+  const [showLeadersModal,setShowLeadersModal] = useState(false);
 
   const { id } = useParams();
   useEffect(() => {
@@ -51,37 +52,28 @@ const Team = () => {
     }
   }
 
+  const modalLeadersAction = async () => {
+    setShowLeadersModal(showLeadersModal ? false : true);
+    if (!freeLeaderCalled) {
+      const res = await getFreeLeaders();
+      if (res.success) {
+        dispatch(setFreeLeaders(res.data));
+      }
+      setFreeLeaderApiCalled(true);
+    }
+  }
+
+  const modalLeaderAction = () =>
+  {
+    setShowLeaderModal(showLeaderModal ? false : true);
+  }
+
   return (
     <>
+        {showModal && <MembersModal close={modalAction}/>}
+        {showLeaderModal && <LeaderModal close={modalLeaderAction}/> }
+        {showLeadersModal && <LeadersModal close={modalLeadersAction}/>}
 
-      <ToastContainer />
-      {
-        showModal && (
-          <Modal close={modalAction} title="Add Member">
-            <table className="table table-striped table-md center-text table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Mobile</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  !loading && freeEmployees && freeEmployees.map((data, index) => {
-                    return <RowAddMember key={index} index={index + 1} data={data} />
-                  })
-                }
-              </tbody>
-            </table>
-
-          </Modal>
-        )
-      }
       <div className="main-content">
         <section className="section">
           {
@@ -95,10 +87,10 @@ const Team = () => {
                 </div>
               </div>
               <div className="row">
-                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
-                <CountsCard title='Total Employee' icon='fa-user' count={teamInformation.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={team.information.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={team.information.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={team.information.employee} />
+                <CountsCard title='Total Employee' icon='fa-user' count={team.information.employee} />
               </div>
 
               <div className="card">
@@ -120,13 +112,14 @@ const Team = () => {
                         <tr>
                           <th>Leader</th>
                           <td>
-                            { team.leader ?
-                                <NavLink to={`/team/${team.leader.id}`} className='badge  badge-primary' style={{padding:'0px 10px 0px 0px'}}>
+                            { 
+                              team.leader ?
+                                <button  className='badge btn badge-primary' onClick={modalLeaderAction} style={{padding:'0px 10px 0px 0px'}}>
                                 <img src={team.leader.image} className='avatar avatar-sm mr-2' alt="Person" width="96" height="96"/>
                                 {team.leader.name}
-                            </NavLink>
+                            </button>
                             :
-                            <button className='badge  badge-light btn' style={{padding:'0px 10px 0px 0px'}}>
+                            <button onClick={modalLeadersAction} className='badge badge-light btn' style={{padding:'0px 10px 0px 0px'}}>
                                 <img src='../assets/icons/user.png' className='avatar avatar-sm mr-2' alt="Person"/>
                                 No Leader
                             </button> 

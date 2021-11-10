@@ -18,7 +18,7 @@ import Teams from './pages/team/Teams';
 import AddUser from './pages/user/AddUser';
 import AddTeam from './pages/team/AddTeam';
 import Employee from './pages/employee/Employee';
-import Team from './pages/team/Team';
+import Team from './pages/team/team/Team';
 import EditUser from './pages/user/EditUser';
 import EditTeam from './pages/team/EditTeam';
 import Admin from './pages/admin/Admin';
@@ -109,7 +109,6 @@ const ProtectedRoute = ({children,...rest}) =>
   const {isAuth} = useSelector((state)=>state.authSlice);
   return (
     <Route {...rest} render={({location})=>{
-      console.log(children)
       return isAuth ? (
         <>
           <SideBar/>

@@ -45,7 +45,6 @@ class TeamController {
     addMember = async (req,res,next) =>
     {
         const {teamId,userId} = req.body;
-        console.log(teamId);
         if(!teamId || !userId) return next(ErrorHandler.badRequest('All Fields Required'));
         if(!mongoose.Types.ObjectId.isValid(teamId)) return next(ErrorHandler.badRequest('Invalid Team Id'));
         if(!mongoose.Types.ObjectId.isValid(userId)) return next(ErrorHandler.badRequest('Invalid Employee Id'));
@@ -68,6 +67,25 @@ class TeamController {
         if(!user.team) return next(ErrorHandler.badRequest(`${user.name} is not in any team`));
         const result = await userService.updateUser(userId,{team:null});
         return (result.modifiedCount!=1) ? next(ErrorHandler.serverError(`Failed To Remove ${user.name} from team`)) : res.json({success:true,message:`Successfully removed ${user.name} from team`});
+    }
+
+    addRemoveLeader = async (req,res,next) =>
+    {
+        const {userId:id,teamId} = req.body;
+        const type = req.path.split('/').pop();
+        if(!teamId || !id) return next(ErrorHandler.badRequest('All Fields Required'));
+        if(!mongoose.Types.ObjectId.isValid(teamId)) return next(ErrorHandler.badRequest('Invalid Team Id'));
+        if(!mongoose.Types.ObjectId.isValid(id)) return next(ErrorHandler.badRequest('Invalid Leader Id'));
+        const user = await userService.findUser({_id:id});
+        if(!user) return next(ErrorHandler.notFound('No Leader Found'));
+        if(user.type!=='leader') return next(ErrorHandler.badRequest(`${user.name} is not a Leader`));
+        const team = await teamService.findTeam({leader:id});
+        console.log(team)
+        if(type==='add' && team) return next(ErrorHandler.badRequest(`${user.name} is already leading '${team.name}' team`));
+        if(type==='remove' && !team) return next(ErrorHandler.badRequest(`${user.name} is not leading any team`));
+        const update = await teamService.updateTeam(teamId,{leader: type==='add' ? id : null});
+        console.log(type==='add' ? id : null);
+        return update.modifiedCount!==1 ? next(ErrorHandler.serverError(`Failed To ${type.charAt(0).toUpperCase() + type.slice(1)} Leader`)) : res.json({success:true,message:`${type==='add'? 'Added' : 'Removed'} Successfully ${user.name} As A Leader`})
     }
 
     getTeams = async (req,res,next) =>

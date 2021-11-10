@@ -73,8 +73,8 @@ const AddUser = () =>
 
         {
             showModal && 
-            <Modal close={modalAction} title="Add Admin">
-                <div className="row">
+            <Modal close={modalAction} title="Add Admin" width='35%'>
+                <div className="row"  style={{margin:'20px'}}>
                     <div className="col col-md-4">
                         <div className="input-group justify-content-center text-center">
                             <img className='rounded' src={imagePreview} width='120' alt="" /> 

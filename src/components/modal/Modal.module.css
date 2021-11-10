@@ -13,9 +13,18 @@
 
 .modalBody{
     /* width: 70%; */
-    width: 75%;
+    /* width: 35%; */
     max-width: 1000px;
     background: white;
     max-height: 80vh;
     overflow: auto;
 }
+
+@media only screen and (max-width: 800px) {
+    .modalBody{
+        width: 85%;
+        max-width: 1000px;
+        background: white;
+        max-height: 80vh;
+    }
+  }
