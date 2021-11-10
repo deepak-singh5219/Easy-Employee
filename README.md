@@ -52,8 +52,39 @@ Using this script you can track your employee targets etc.. export the details i
 ### Employee
 - Update Self Account
 
-## Flow Chart
+## Install
+To install it in your system. symply download and extract it to anywhere.
+Open CMD from the root folder and fire the command. `NPM UPDATE`
+Go To backend and fire command `NPM UPDATE`
 
+Open .env file and mention their your database name.
+
+As per the security only admin can create Admins, Leaders and Employees. So you have insert this dummy data in your users collection to logged in into the system.
+```json
+[{
+  "_id": {
+    "$oid": "618c4861d3481fe2115a6d97"
+  },
+  "name": "Social Codia",
+  "email": "socialcodia@gmail.com",
+  "username": "socialcodia",
+  "mobile": 9867503256,
+  "password": "$2b$10$PEZ5QHRqhTzyA9vZJnleBextO.t23tRvN3lHH8j7n49KY7G90xhxS",
+  "type": "admin",
+  "status": "active",
+  "image": "socialcodia.png",
+  "address": "Social Codia, Mumbai",
+  "createdAt": {
+    "$date": "2021-11-10T22:32:01.101Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-10T22:32:01.101Z"
+  },
+  "__v": 0
+}]
+```
+
+## Flow Chart
 ![Flow Chart](https://i.imgur.com/mFeSGwq.png "Flow Chart")
 
 ## Screenshots
