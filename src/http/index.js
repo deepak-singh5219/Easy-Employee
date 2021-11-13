@@ -32,6 +32,9 @@ export const addMember = data => api.patch('/admin/team/member/add',data);
 export const removeLeader = data => api.patch('/admin/team/leader/remove',data);
 export const addLeader = data => api.patch('/admin/team/leader/add',data);
 export const getUser = data => api.get(`/admin/user/${data}`);
+//Leader
+export const getMembers_Leader = () => api.get('/leader/team/members');
+export const getTeam_Leader = () => api.get('/leader/team/');
 
 api.interceptors.response.use((response)=>{
     return response.data;

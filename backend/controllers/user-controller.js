@@ -86,12 +86,13 @@ class UserController {
 
     getUsers = async (req,res,next) =>
     {
-        const type = req.path.replace('/','').replace('s','');
+        const type = req.path.split('/').pop().replace('s','');
         const emps = await userService.findUsers({type});
         if(!emps || emps.length<1) return next(ErrorHandler.notFound(`No ${type.charAt(0).toUpperCase()+type.slice(1).replace(' ','')} Found`));
         const employees = emps.map((o)=> new UserDto(o));
-        res.json({success:true,message:'Employee List Found',data:employees})
+        res.json({success:true,message:`${type.charAt(0).toUpperCase()+type.slice(1).replace(' ','')} List Found`,data:employees})
     }
+
 
     getFreeEmployees = async (req,res,next) =>
     {

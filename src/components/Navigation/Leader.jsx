@@ -4,7 +4,7 @@ const Leader = () =>
     return(
     <ul className="sidebar-menu">
       <li><NavLink className="nav-link" to="/home"><i className="fas fa-fire"></i> <span>Dashboard</span></NavLink></li>
-      <li><NavLink className="nav-link" to="/employees"><i className="fas fa-fire"></i> <span>Members</span></NavLink></li>
+      <li><NavLink className="nav-link" to="/members"><i className="fas fa-fire"></i> <span>Members</span></NavLink></li>
       <li><NavLink className="nav-link" to="/leaders"><i className="fas fa-fire"></i> <span>Team</span></NavLink></li>
 
       <li className="menu-header">Settings</li>

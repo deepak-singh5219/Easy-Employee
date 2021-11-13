@@ -29,6 +29,7 @@ import './assets/css/components.css';
 import Leaders from './pages/leader/Leaders';
 import SideBar from './components/Sidebar';
 import Navigation from './components/Navigation';
+import Members from './pages/leaderpage/Members';
 // import './assets/css/asdfasdf';
 // import './assets/css/asdfasdf';
 
@@ -51,39 +52,42 @@ const App = () =>
       <ProtectedRoute exact path='/home'>
         <Home/>
       </ProtectedRoute>
-      <ProtectedRoute exact path='/employees'>
+      <AdminRoute exact path='/employees'>
         <Employees/>
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/admins'>
+      </AdminRoute>
+      <LeaderRoute exact path='/members'>
+        <Members/>
+      </LeaderRoute>
+      <AdminRoute exact path='/admins'>
         <Admins/>
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/teams'>
+      </AdminRoute>
+      <AdminRoute exact path='/teams'>
         <Teams/>
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/adduser'>
+      </AdminRoute>
+      <AdminRoute exact path='/adduser'>
         <AddUser/>
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/addteam'>
+      </AdminRoute>
+      <AdminRoute exact path='/addteam'>
         <AddTeam/>
-      </ProtectedRoute>
-      <ProtectedRoute  path='/employee/:id'>
+      </AdminRoute>
+      <AdminRoute  path='/employee/:id'>
         <Employee/>
-      </ProtectedRoute>
-      <ProtectedRoute  path='/team/:id'>
+      </AdminRoute>
+      <AdminRoute  path='/team/:id'>
         <Team/>
-      </ProtectedRoute> 
-      <ProtectedRoute  path='/edituser/:id'>
+      </AdminRoute> 
+      <AdminRoute  path='/edituser/:id'>
         <EditUser/>
-      </ProtectedRoute>
-      <ProtectedRoute  path='/editteam/:id'>
+      </AdminRoute>
+      <AdminRoute  path='/editteam/:id'>
         <EditTeam/>
-      </ProtectedRoute>
-      <ProtectedRoute  path='/admin/:id'>
+      </AdminRoute>
+      <AdminRoute  path='/admin/:id'>
         <Admin/>
-      </ProtectedRoute>
-      <ProtectedRoute  path='/leaders'>
+      </AdminRoute>
+      <AdminRoute  path='/leaders'>
         <Leaders/>
-      </ProtectedRoute>
+      </AdminRoute>
     </Switch>
   )
 }
@@ -128,5 +132,101 @@ const ProtectedRoute = ({children,...rest}) =>
   );
 }
 
+const AdminRoute = ({children,...rest}) =>
+{
+  const {user} = useSelector((state)=>state.authSlice);
+  return (
+    <Route {...rest} render={({location})=>{
+      return user && user.type==='Admin' ? (
+        <>
+          <SideBar/>
+          <Navigation/>
+          {children}
+        </>) : (
+        <Redirect
+          to={{
+            pathname:'/',
+            state:{
+              from:location
+            }
+          }}
+        />
+      );
+    }} />
+  );
+}
+
+const AdminLeaderRouter = ({children,...rest}) =>
+{
+  const {user} = useSelector((state)=>state.authSlice);
+  return (
+    <Route {...rest} render={({location})=>{
+      return user && (user.type==='Admin' || user.type==='Leader') ? (
+        <>
+          <SideBar/>
+          <Navigation/>
+          {children}
+        </>) : (
+        <Redirect
+          to={{
+            pathname:'/',
+            state:{
+              from:location
+            }
+          }}
+        />
+      );
+    }} />
+  );
+}
+
+
+const LeaderRoute = ({children,...rest}) =>
+{
+  const {user} = useSelector((state)=>state.authSlice);
+  return (
+    <Route {...rest} render={({location})=>{
+      return user && user.type==='Leader' ? (
+        <>
+          <SideBar/>
+          <Navigation/>
+          {children}
+        </>) : (
+        <Redirect
+          to={{
+            pathname:'/',
+            state:{
+              from:location
+            }
+          }}
+        />
+      );
+    }} />
+  );
+}
+
+const EmployeeRoute = ({children,...rest}) =>
+{
+  const {user} = useSelector((state)=>state.authSlice);
+  return (
+    <Route {...rest} render={({location})=>{
+      return user && user.type==='Employee' ? (
+        <>
+          <SideBar/>
+          <Navigation/>
+          {children}
+        </>) : (
+        <Redirect
+          to={{
+            pathname:'/',
+            state:{
+              from:location
+            }
+          }}
+        />
+      );
+    }} />
+  );
+}
 
 export default App;
