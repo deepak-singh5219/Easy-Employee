@@ -23,7 +23,7 @@ export const getTeamMembers = data => api.get(`/admin/team/${data}/members`);
 export const addUser = data => api.post('/admin/user',data);
 export const updateUser = (id,data) => api.patch(`/admin/user/${id}`,data);
 export const addTeam = data => api.post('/admin/team',data);
-export const updateTeam = (id,data) => api.patch(`/admin/team/${id}`,data);
+export const updateTeam = (id,data) => api.post(`/admin/team/${id}`,data);
 export const getEmployee = data => api.get(`/admin/employee/${data}`);
 export const getFreeEmployees = () => api.get('/admin/employees/free');
 export const getTeam = data => api.get(`/admin/team/${data}`);
