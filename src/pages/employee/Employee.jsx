@@ -12,6 +12,7 @@ const Employee = () =>
         address:'',
         status:''
     });
+    
     const {id} = useParams();
     useEffect(()=>{
         (async ()=>{

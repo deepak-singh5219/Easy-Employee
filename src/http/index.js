@@ -19,6 +19,7 @@ export const getLeaders = () => api.get('/admin/leaders');
 export const getFreeLeaders = () => api.get('/admin/leaders/free');
 export const getAdmins = () => api.get('/admin/admins');
 export const getTeams = () => api.get('/admin/teams');
+
 export const getTeamMembers = data => api.get(`/admin/team/${data}/members`);
 export const addUser = data => api.post('/admin/user',data);
 export const updateUser = (id,data) => api.patch(`/admin/user/${id}`,data);
@@ -35,6 +36,11 @@ export const getUser = data => api.get(`/admin/user/${data}`);
 //Leader
 export const getMembers_Leader = () => api.get('/leader/team/members');
 export const getTeam_Leader = () => api.get('/leader/team/');
+
+// Employee
+export const getEmployeeTeam = data => api.get(`/employee/team/${data}`);
+export const getEmployeeTeamMembers = data => api.get(`/employee/team/${data}/members`);
+
 
 api.interceptors.response.use((response)=>{
     return response.data;

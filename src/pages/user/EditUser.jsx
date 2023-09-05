@@ -72,6 +72,7 @@ const EditUser = () =>
             return fd.append(key,updateFormData[key]);
         })
         const {success,message} = await updateUser(id,fd);
+        console.log("Update User:",message)
         return (success) && toast.success(message)
     }
 
