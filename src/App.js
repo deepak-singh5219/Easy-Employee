@@ -30,6 +30,17 @@ import Leaders from './pages/leader/Leaders';
 import SideBar from './components/sidebar';
 import Navigation from './components/navigation';
 import Members from './pages/leaderpage/Members';
+import UserTeams from './components/Employees/UserTeams';
+import Attendance from './components/Employees/Attendance';
+import LeaveApplications from './components/Employees/LeaveApplications';
+import Salary from './components/Employees/Salary';
+import ApplyForLeave from './components/Employees/ApplyForLeave';
+import EmployeeTeam from './pages/team/team/EmployeeTeam';
+
+
+
+
+
 // import './assets/css/asdfasdf';
 // import './assets/css/asdfasdf';
 
@@ -40,6 +51,27 @@ const App = () =>
   return loading ? 
   <Loading/> : (
     <Switch>
+      <EmployeeRoute exact path='/userTeams'>
+        <UserTeams/>
+      </EmployeeRoute>
+      <EmployeeRoute exact path='/userteam/:id'>
+        <EmployeeTeam/>
+      </EmployeeRoute> 
+      {/* <EmployeeRoute exact path='/home'>
+        <Home/>
+      </EmployeeRoute> */}
+      <EmployeeRoute exact path='/userAttendance'>
+        <Attendance/>
+      </EmployeeRoute>
+      <EmployeeRoute exact path='/applyforleave'>
+        <ApplyForLeave/>
+      </EmployeeRoute>
+      <EmployeeRoute exact path='/userSalary'>
+        <Salary/>
+      </EmployeeRoute>
+      <EmployeeRoute exact path='/userLeaveApplications'>
+        <LeaveApplications/>
+      </EmployeeRoute>
       <GuestRoute exact path='/' >
         <Login/>
       </GuestRoute>

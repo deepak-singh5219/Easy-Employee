@@ -7,6 +7,7 @@ import { setTeamLeader } from '../../../../store/team-slice';
 
 const LeaderModal = ({close}) =>
 {
+    const {user} = useSelector(state => state.authSlice);
     const {team} = useSelector(state=>state.teamSlice);
     const {leader} = team;
     const dispatch = useDispatch();
@@ -59,7 +60,13 @@ const LeaderModal = ({close}) =>
                 </tr>
                 
             </table>
-            <button  onClick={showDialog} className='btn btn-danger mb-4'>Remove</button>
+            {
+                user.type==="Admin"?
+                (<button  onClick={showDialog} className='btn btn-danger mb-4'>Remove</button>)
+                :
+                (<div></div>)
+            }
+            
                     
         </div>
         }
