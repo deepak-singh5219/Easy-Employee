@@ -40,7 +40,8 @@ export const getTeam_Leader = () => api.get('/leader/team/');
 // Employee
 export const getEmployeeTeam = data => api.get(`/employee/team/${data}`);
 export const getEmployeeTeamMembers = data => api.get(`/employee/team/${data}/members`);
-
+export const markEmployeeAttendance = data => api.post('/employee/mark-employee-attendance',data);
+export const viewEmployeeAttendance = data => api.post('/employee/view-employee-attendance',data);
 
 api.interceptors.response.use((response)=>{
     return response.data;
