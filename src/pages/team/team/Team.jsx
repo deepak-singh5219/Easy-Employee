@@ -11,6 +11,7 @@ import LeaderModal from "./modal/LeaderModal";
 import LeadersModal from "./modal/LeadersModal";
 import MembersModal from "./modal/MembersModal";
 
+
 const Team = () => {
   const dispatch = useDispatch();
   const { team } = useSelector(state => state.teamSlice);
@@ -23,7 +24,7 @@ const Team = () => {
   const [showModal, setShowModal] = useState(false);
   const [showLeaderModal,setShowLeaderModal] = useState(false);
   const [showLeadersModal,setShowLeadersModal] = useState(false);
-
+ 
   const { id } = useParams();
   useEffect(() => {
     (async () => {

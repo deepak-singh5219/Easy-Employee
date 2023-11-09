@@ -13,6 +13,7 @@ const Teams = () =>
     dispatch(setTeamMembers(null))
     const [loading,setLoading] = useState(true);
     const [teams,setTeams] = useState({});
+    
     useEffect(()=>{
         (async ()=>{
             const res = await getTeams();
