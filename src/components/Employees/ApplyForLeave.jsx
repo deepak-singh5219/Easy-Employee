@@ -11,9 +11,7 @@ import { useSelector } from "react-redux";
 const ApplyForLeave = () =>
 {
   const {user} = useSelector(state => state.authSlice); 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const initialState = {title:'',type:'', period:0, startDate, endDate, reason:''}
+  const initialState = {title:'',type:'', period:'', startDate:'', endDate:'', reason:''}
   const [formData,setFormData] = useState(initialState);
 
     const inputEvent = (e) =>
@@ -41,6 +39,9 @@ const ApplyForLeave = () =>
         formData["applicantID"] = user.id;
         formData["appliedDate"] = d.toLocaleDateString();
 
+        console.log(formData);
+
+
         const res = await applyforleave(formData);
         const {success} = res;
         console.log(res)
@@ -49,9 +50,6 @@ const ApplyForLeave = () =>
         }    
 
         setFormData(initialState);
-        setStartDate("");
-        setEndDate("");
-
     }
 
     return(
@@ -95,7 +93,7 @@ const ApplyForLeave = () =>
                                 <input onChange={inputEvent} value={formData.period} type="number" id='period' name='period' className="form-control"/>
                             </div>
                         </div>
-                        <div className="form-group col-md-12"> 
+                        <div className="form-group col-md-6"> 
                         <label>Start Date</label>
                         <div className="input-group">
                                 <div className="input-group-prepend">
@@ -103,7 +101,8 @@ const ApplyForLeave = () =>
                                 <i class="fa fa-calendar"></i>
                                 </div>
                                 </div>
-                                <DatePicker className="form-control select2" selected={startDate} onChange={(date) => setStartDate(date)} />
+                                <input onChange={inputEvent} value={formData.startDate} type="date" id="startDate" name="startDate" className="form-control"></input>
+                          
                             </div>
                         </div>    
 
@@ -115,7 +114,8 @@ const ApplyForLeave = () =>
                                 <i class="fa fa-calendar"></i>
                                 </div>
                                 </div>
-                                <DatePicker className="form-control select2" selected={endDate} onChange={(date) => setEndDate(date)} />
+                                <input onChange={inputEvent} value={formData.endDate} type="date" id="endDate" name="endDate" className="form-control"></input>
+                                
                             </div>
                         </div>  
                        
@@ -129,7 +129,7 @@ const ApplyForLeave = () =>
                                     <i className="fas fa-book"></i>
                                 </div>
                                 </div>
-                                <input onChange={inputEvent} value={formData.address} type="text" id='reason' name='reason' className="form-control"/>
+                                <input onChange={inputEvent} value={formData.reason} type="text" id='reason' name='reason' className="form-control"/>
                             </div>
                         </div>
 
