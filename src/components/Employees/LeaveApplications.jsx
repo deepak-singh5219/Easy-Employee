@@ -28,7 +28,6 @@ const LeaveApplications = () => {
     const fetchData = async () => {
       const res = await viewLeaveApplications(obj);
       const {data} = res;
-      console.log(data)
       setApplications(data);
     }
     fetchData();
