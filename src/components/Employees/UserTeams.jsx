@@ -79,7 +79,7 @@ const UserTeams = () => {
                                 </div> }
                             </td>
                             <td><div className={`badge ${userteam.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{userteam.status}</div></td>
-                            <td><NavLink to={`/userteam/${userteam.id}`} className="btn btn-secondary">Detail</NavLink></td>
+                            <td><NavLink to={`/userteam/${userteam.id}`} className="btn btn-primary">Detail</NavLink></td>
                             
                         </tr>)
                         :
