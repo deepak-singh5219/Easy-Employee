@@ -50,6 +50,22 @@ const Attendance = () => {
     }
   },[]);
 
+  useEffect(()=>{
+    const dt = new Date();
+    const obj = {
+      "employeeID": user.id,
+      "year": dt.getFullYear(),
+      "month":dt.getMonth()+1
+    }
+    const fetchData = async () => {
+      const res = await viewEmployeeAttendance(obj);
+      const {data} = res;
+      setAttendance(data);
+    } 
+    fetchData();
+
+  },[])
+
 
 
   const markAttendance = async () => {
