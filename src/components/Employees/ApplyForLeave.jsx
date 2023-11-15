@@ -37,7 +37,7 @@ const ApplyForLeave = () =>
         const d = new Date();
         
         formData["applicantID"] = user.id;
-        formData["appliedDate"] = d.toLocaleDateString();
+        formData["appliedDate"] = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 
         console.log(formData);
 
