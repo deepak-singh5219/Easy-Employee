@@ -39,9 +39,10 @@ const Attendance = () => {
   const days = Array.from({ length: numOfDays }, (_, index) => index + 1);
 
   useEffect(() => {
-    const storedData = localStorage.getItem('attendanceData');
+    const storedData = localStorage.getItem(user.id);
     if(storedData){
       const data = JSON.parse(storedData);
+      console.log(data)
       const dt = data.date + "/" + data.month + "/" + data.year;
       if(dt===new Date().toLocaleDateString()){
         setIsAttendanceMarked(true);
@@ -75,7 +76,7 @@ const Attendance = () => {
         toast.success(res.message);
         const {newAttendance} = res;
         const attendanceData = JSON.stringify(newAttendance);
-        localStorage.setItem('attendanceData', attendanceData);
+        localStorage.setItem(user.id, attendanceData);
         setIsAttendanceMarked(true);
     }
   }
