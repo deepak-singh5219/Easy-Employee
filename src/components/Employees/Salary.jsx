@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { viewEmployeeSalary } from '../../http';
+import { toast } from "react-toastify";
+
 
 
 
@@ -13,12 +15,14 @@ const Salary = () => {
     const obj = {
       "employeeID":user.id
     }
+    console.log(user.id);
     const fetchData = async () => {
       const res = await viewEmployeeSalary(obj);
-      const {success} = res;
-      if(success){
+      const {success,data} = res;
+      if(data.length>0){
         setSalary(res.data[0]);
       }
+      else toast.error(user.name+ "'s" +" " + "Salary not found");
     }
     fetchData();
   },[]);
@@ -28,11 +32,16 @@ const Salary = () => {
     <section className="section">
             <div className="card">
               <div className="card-header d-flex justify-content-between">
-                <h4>Updated Salary from {salary?.assignedDate}</h4>
+                {
+                  !salary?
+                  (<h4>Salary not yet updated</h4>)
+                  :
+                  (<h4>Updated Salary from {salary?.assignedDate}</h4>)
+                }
               </div>
             </div>
 
-            <div className="card">
+            <div className={`card ${salary?"":"d-none"}`}>
                   <div className="card-body row">
                     <div className="col-md-3 ">
                         <img className='img-fluid img-thumbnail' src={user.image} alt="" />
