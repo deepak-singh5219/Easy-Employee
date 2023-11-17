@@ -36,7 +36,8 @@ import LeaveApplications from './components/Employees/LeaveApplications';
 import Salary from './components/Employees/Salary';
 import ApplyForLeave from './components/Employees/ApplyForLeave';
 import EmployeeTeam from './pages/team/team/EmployeeTeam';
-
+import LeaveApplication from './components/Employees/LeaveApplication';
+import DashboardEmployee from './components/DashboardEmployee';
 
 
 
@@ -57,9 +58,9 @@ const App = () =>
       <EmployeeRoute exact path='/userteam/:id'>
         <EmployeeTeam/>
       </EmployeeRoute> 
-      {/* <EmployeeRoute exact path='/home'>
-        <Home/>
-      </EmployeeRoute> */}
+      <EmployeeRoute exact path='/dashboardEmployee'>
+        <DashboardEmployee/>
+      </EmployeeRoute>
       <EmployeeRoute exact path='/userAttendance'>
         <Attendance/>
       </EmployeeRoute>
@@ -71,6 +72,9 @@ const App = () =>
       </EmployeeRoute>
       <EmployeeRoute exact path='/userLeaveApplications'>
         <LeaveApplications/>
+      </EmployeeRoute>
+      <EmployeeRoute exact path='/userLeaveApplications/:id'>
+        <LeaveApplication/>
       </EmployeeRoute>
       <GuestRoute exact path='/' >
         <Login/>

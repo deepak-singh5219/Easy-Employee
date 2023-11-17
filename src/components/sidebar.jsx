@@ -7,8 +7,7 @@ import Employee from './Navigation/Employee';
 const SideBar = () => {
 
   const {user} = useSelector(state => state.authSlice);
-  console.log(user);
-
+  
   return (
     <div className="main-sidebar">
       <aside id="sidebar-wrapper">
