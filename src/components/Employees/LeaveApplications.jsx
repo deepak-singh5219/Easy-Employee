@@ -22,7 +22,6 @@ const LeaveApplications = () => {
   useEffect(()=>{
     const obj = {
       "applicantID":user.id,
-      "adminResponse":"Pending"
     }
 
     const fetchData = async () => {

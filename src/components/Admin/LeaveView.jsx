@@ -24,7 +24,6 @@ const LeaveView = () => {
 
   useEffect(()=>{
     const obj = {
-      "adminResponse":"Pending"
     }
     let empObj = {};
     const fetchData = async () => {
