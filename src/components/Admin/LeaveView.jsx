@@ -51,6 +51,10 @@ const LeaveView = () => {
         
       }
 
+      if(selectedEmployee){
+        obj["applicantID"] = selectedEmployee;
+      }
+
       if(type){
         obj["type"] = type;
       }
@@ -61,7 +65,9 @@ const LeaveView = () => {
         obj["appliedDate"] = appliedDate;
       }
 
-      const res = await viewLeaveApplications(obj);
+      console.log(obj);
+
+      const res = await viewLeaves(obj);
       const {data} = res;
       setApplications(data);
 
@@ -80,6 +86,22 @@ const LeaveView = () => {
             </div>
       
       <div className="d-flex justify-content-center align-items-center w-100">
+
+      <div className="form-group col-md-2">
+      <label>Leave Type</label>
+        <select
+          className='form-control select2'
+          value={selectedEmployee}
+          onChange={(e) => setSelectedEmployee(e.target.value)}
+        >
+          <option value="">Employees</option>
+          {employees?.map((employee) => (
+            <option key={employee._id} value={employee.id}>
+              {employee.name}
+            </option>
+          ))}
+        </select>
+      </div>
        
       <div className="form-group col-md-2">
                             <label>Leave Type</label>
