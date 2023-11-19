@@ -40,6 +40,10 @@ const LeaveApplication = () => {
                           <td>{application?.type}</td>
                         </tr>
                         <tr>
+                          <th>Reason</th>
+                          <td>{application?.reason}</td>
+                        </tr>
+                        <tr>
                           <th>Start Date</th>
                           <td>
                            {application?.startDate}
