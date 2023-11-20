@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAttendance, getEmployees, markEmployeeAttendance } from '../../http';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import Loading from '../Loading';
 
 
 
@@ -95,108 +96,115 @@ const AttendanceView = () => {
       setAttendance(data);
   }
   return (
-    <div className="main-content">
-    <section className="section">
-            <div className="card">
-              <div className="card-header d-flex justify-content-between">
-                <h4>Attendance</h4>
-                
+    <>
+    {
+      attendance? ( <div className="main-content">
+      <section className="section">
+              <div className="card">
+                <div className="card-header d-flex justify-content-between">
+                  <h4>Attendance</h4>
+                  
+                </div>
               </div>
-            </div>
-      
-      <div className="d-flex justify-content-center w-100">
-
-      <div className="col">
-        <select
+        
+        <div className="d-flex justify-content-center w-100">
+  
+        <div className="col">
+          <select
+            className='form-control select2'
+            value={selectedEmployee}
+            onChange={(e) => setSelectedEmployee(e.target.value)}
+          >
+            <option value="">Employees</option>
+            {employees?.map((employee) => (
+              <option key={employee._id} value={employee.id}>
+                {employee.name}
+              </option>
+            ))}
+          </select>
+        </div>
+         
+         <div className="col">
+          <select
+            className='form-control select2'
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+          >
+            <option value="">Year</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+  
+        <div className="col">
+          <select
+            className='form-control select2'
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+          >
+            <option value="">Month</option>
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col">
+          <select
           className='form-control select2'
-          value={selectedEmployee}
-          onChange={(e) => setSelectedEmployee(e.target.value)}
-        >
-          <option value="">Employees</option>
-          {employees?.map((employee) => (
-            <option key={employee._id} value={employee.id}>
-              {employee.name}
-            </option>
-          ))}
-        </select>
+            value={selectedDay}
+            onChange={(e) => setSelectedDay(e.target.value)}
+          >
+            <option value="">Day</option>
+            {days.map((day) => (
+              <option key={day} value={day}>
+                {day}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button onClick={searchAttendance} className="btn btn-lg btn-primary col">Search</button>
       </div>
-       
-       <div className="col">
-        <select
-          className='form-control select2'
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-        >
-          <option value="">Year</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+      </section>
+      <div className="table-responsive">
+          <table className="table table-striped table-md center-text">
+              <thead>
+                 <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+               {
+  
+                attendance?.map((attendance,idx) => 
+                <tr> 
+                <td>{idx+1}</td> 
+                <td>{employeeMap && employeeMap[attendance.employeeID][0]}</td>
+                <td>{employeeMap && employeeMap[attendance.employeeID][1]}</td>
+                <td>{attendance.date+"/"+attendance.month+"/"+attendance.year}</td>
+                <td>{attendance.day}</td>
+                <td>{attendance.present===true?"Present":""}</td>
+                </tr> 
+                )
+               }            
+              </tbody>
+          </table>
       </div>
-
-      <div className="col">
-        <select
-          className='form-control select2'
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        >
-          <option value="">Month</option>
-          {months.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="col">
-        <select
-        className='form-control select2'
-          value={selectedDay}
-          onChange={(e) => setSelectedDay(e.target.value)}
-        >
-          <option value="">Day</option>
-          {days.map((day) => (
-            <option key={day} value={day}>
-              {day}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button onClick={searchAttendance} className="btn btn-lg btn-primary col">Search</button>
-    </div>
-    </section>
-    <div className="table-responsive">
-        <table className="table table-striped table-md center-text">
-            <thead>
-               <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Date</th>
-                  <th>Day</th>
-                  <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-             {
-
-              attendance?.map((attendance,idx) => 
-              <tr> 
-              <td>{idx+1}</td> 
-              <td>{employeeMap && employeeMap[attendance.employeeID][0]}</td>
-              <td>{employeeMap && employeeMap[attendance.employeeID][1]}</td>
-              <td>{attendance.date+"/"+attendance.month+"/"+attendance.year}</td>
-              <td>{attendance.day}</td>
-              <td>{attendance.present===true?"Present":""}</td>
-              </tr> 
-              )
-             }            
-            </tbody>
-        </table>
-    </div>
-  </div>
+    </div>)
+    :
+    <Loading/>
+    }
+    </>
+   
   )
 }
 
