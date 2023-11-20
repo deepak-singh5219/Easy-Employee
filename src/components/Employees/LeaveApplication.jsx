@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { viewLeaveApplications } from '../../http';
+import Loading from '../Loading';
 
 
 const LeaveApplication = () => {
@@ -20,7 +21,8 @@ const LeaveApplication = () => {
     },[]);
     
   return (
-    <div className="main-content">
+    application?
+    (<div className="main-content">
     <section className="section">
             <div className="card">
               <div className="card-header d-flex justify-content-between">
@@ -78,7 +80,9 @@ const LeaveApplication = () => {
                     </table>
                   </div>
     </section>
-  </div>
+  </div>)
+  :
+  <Loading/>
   )
 }
 
