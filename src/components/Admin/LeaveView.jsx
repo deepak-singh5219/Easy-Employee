@@ -20,11 +20,10 @@ const LeaveView = () => {
   const [selectedEmployee, setSelectedEmployee] = useState();
 
   useEffect(()=>{
-    const obj = {
-    }
+
     let empObj = {};
     const fetchData = async () => {
-      const res = await viewLeaves(obj);
+      const res = await viewLeaves({});
       const {data} = res;
       setApplications(data);
     }
@@ -87,7 +86,7 @@ const LeaveView = () => {
         <div className="d-flex justify-content-center align-items-center w-100">
   
         <div className="form-group col-md-2">
-        <label>Leave Type</label>
+        <label>Employee</label>
           <select
             className='form-control select2'
             value={selectedEmployee}
