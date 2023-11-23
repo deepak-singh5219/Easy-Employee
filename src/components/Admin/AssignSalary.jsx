@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
-import { applyforleave, assignSalary, getEmployees } from "../../http";
-import Modal from '../../components/modal/Modal';
-import DatePicker from "react-datepicker";
+import { assignSalary, getEmployees } from "../../http";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
 
 
 const AssignSalary = () =>
 {
-  const {user} = useSelector(state => state.authSlice); 
   const initialState = {salary:'',bonus:'', reasonForBonus:''}
   const [formData,setFormData] = useState(initialState);
   const [selectedEmployee, setSelectedEmployee] = useState();
@@ -45,14 +42,7 @@ const AssignSalary = () =>
         e.preventDefault();
         const {salary, bonus, reasonForBonus} = formData;
         if(!salary || !bonus || !reasonForBonus) return toast.error('All Field Required');
-        
-        const d = new Date();
-        
         formData["employeeID"] = selectedEmployee;
-
-        console.log(formData);
-
-
         const res = await assignSalary(formData);
         const {success} = res;
         console.log(res)

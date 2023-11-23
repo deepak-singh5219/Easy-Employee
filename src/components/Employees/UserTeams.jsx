@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployeeTeam } from "../../http";
-import RowTeam from '../rows/team-row';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 import { setTeam } from '../../store/team-slice';
 import { setTeamMembers } from '../../store/user-slice';

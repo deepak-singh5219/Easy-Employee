@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAttendance, getEmployees, markEmployeeAttendance } from '../../http';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { getAttendance, getEmployees } from '../../http';
 import Loading from '../Loading';
 
 
@@ -11,8 +9,6 @@ import Loading from '../Loading';
 
 
 const AttendanceView = () => {
-  const {user} = useSelector(state => state.authSlice);
-  const [isAttendanceMarked, setIsAttendanceMarked] = useState(false);
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
@@ -42,8 +38,6 @@ const AttendanceView = () => {
   }
   const numOfDays = monthDays[selectedMonth];
   const days = Array.from({ length: numOfDays }, (_, index) => index + 1);
-
-
 
   useEffect(()=>{
     const dt = new Date();

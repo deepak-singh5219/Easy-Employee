@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { getEmployee, updateSalary, viewAllSalaries } from '../../http';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
-import { setEmployees } from '../../store/main-slice';
 import HeaderSection from "../../components/HeaderSection";
 
 
