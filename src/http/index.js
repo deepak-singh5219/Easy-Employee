@@ -2,9 +2,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-    baseURL:'http://localhost:5500/api',
+    baseURL:`${process.env.REACT_APP_BASE_URL}/api`,
     withCredentials:true
 })
+
+// 'http://localhost:5500/api'
 
 //Auth
 export const doLogin = data => api.post('/auth/login',data);
