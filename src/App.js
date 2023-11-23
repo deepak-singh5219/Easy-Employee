@@ -38,6 +38,12 @@ import ApplyForLeave from './components/Employees/ApplyForLeave';
 import EmployeeTeam from './pages/team/team/EmployeeTeam';
 import LeaveApplication from './components/Employees/LeaveApplication';
 import DashboardEmployee from './components/DashboardEmployee';
+import AttendanceView from './components/Admin/AttendanceView';
+import LeaveView from './components/Admin/LeaveView';
+import Leave from './components/Admin/Leave';
+import AssignSalary from './components/Admin/AssignSalary';
+import Salaries from './components/Admin/Salaries';
+import SalaryView from './components/Admin/Salary';
 
 
 
@@ -102,6 +108,24 @@ const App = () =>
       </AdminRoute>
       <AdminRoute exact path='/adduser'>
         <AddUser/>
+      </AdminRoute>
+      <AdminRoute exact path='/attendance'>
+        <AttendanceView/>
+      </AdminRoute>
+      <AdminRoute exact path='/leaves'>
+        <LeaveView/>
+      </AdminRoute>
+      <AdminRoute exact path='/assignSalary'>
+        <AssignSalary/>
+      </AdminRoute>
+      <AdminRoute exact path='/salaries'>
+        <Salaries/>
+      </AdminRoute>
+      <AdminRoute exact path='/leaves/:id'>
+        <Leave/>
+      </AdminRoute>
+      <AdminRoute exact path='/salary/:id'>
+        <SalaryView/>
       </AdminRoute>
       <AdminRoute exact path='/addteam'>
         <AddTeam/>

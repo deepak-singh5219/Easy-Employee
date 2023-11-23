@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hover-effect:hover {
+  cursor:pointer;
+  opacity: 0.9;
+}

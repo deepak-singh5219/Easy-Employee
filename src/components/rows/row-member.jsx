@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const RowMember = ({index,data}) =>
 {
-
+    const {user} = useSelector(state => state.authSlice);
     const dispatch = useDispatch();
     const {teamMembers,freeEmployees} = useSelector(state => state.userSlice);
 
@@ -52,7 +52,13 @@ const RowMember = ({index,data}) =>
             <td>{data.email}</td>
             <td>{data.mobile}</td>
             <td><div className={`badge ${data.status==='Active' ? 'badge-primary' :'badge-danger'}`}>{data.status}</div></td>
-            <td><button className='btn btn-danger' onClick={showDialog}><i className="fas fa-trash-alt"></i></button></td>
+            {
+                user.type==="Admin"?
+                (<td><button className='btn btn-danger' onClick={showDialog}><i className="fas fa-trash-alt"></i></button></td>)
+                :
+                (<div></div>)
+            }
+            
         </tr>
     );
 }

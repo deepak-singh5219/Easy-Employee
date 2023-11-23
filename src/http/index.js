@@ -33,6 +33,13 @@ export const addMember = data => api.patch('/admin/team/member/add',data);
 export const removeLeader = data => api.patch('/admin/team/leader/remove',data);
 export const addLeader = data => api.patch('/admin/team/leader/add',data);
 export const getUser = data => api.get(`/admin/user/${data}`);
+export const getAttendance = data => api.post('admin/view-employee-attendance',data);
+export const viewLeaves = data => api.post('admin/view-leave-applications',data);
+export const updateLeave = (id,data) => api.post(`admin/update-leave/${id}`,data);
+export const assignSalary = data => api.post('admin/assign-employee-salary',data);
+export const updateSalary = data => api.post('admin/update-employee-salary',data);
+export const viewAllSalaries = data => api.post('admin/view-all-salary',data);
+
 //Leader
 export const getMembers_Leader = () => api.get('/leader/team/members');
 export const getTeam_Leader = () => api.get('/leader/team/');
@@ -42,6 +49,9 @@ export const getEmployeeTeam = data => api.get(`/employee/team/${data}`);
 export const getEmployeeTeamMembers = data => api.get(`/employee/team/${data}/members`);
 export const markEmployeeAttendance = data => api.post('/employee/mark-employee-attendance',data);
 export const viewEmployeeAttendance = data => api.post('/employee/view-employee-attendance',data);
+export const applyforleave = data => api.post('/employee/apply-leave-application',data);
+export const viewLeaveApplications = data  => api.post('/employee/view-leave-applications',data);
+export const viewEmployeeSalary = data => api.post('employee/view-salary',data);
 
 api.interceptors.response.use((response)=>{
     return response.data;
