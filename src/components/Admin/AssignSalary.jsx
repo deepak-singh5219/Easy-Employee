@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import HeaderSection from "../../components/HeaderSection";
-import { assignSalary, getEmployees } from "../../http";
+import { assignSalary, getEmployees, getLeaders } from "../../http";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
 
@@ -15,9 +15,9 @@ const AssignSalary = () =>
 
   useEffect(() => {
     const fetchEmployees = async () => {
-        const res = await getEmployees();
-        const {data} = res;
-        setEmployees(data);
+        const emps = await getEmployees();
+        const leaders = await getLeaders();
+        setEmployees([...emps.data,...leaders.data]);
     }
     fetchEmployees();
 

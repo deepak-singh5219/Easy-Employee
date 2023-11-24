@@ -39,8 +39,6 @@ const Members = () =>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Status</th>
-                            <th>Team</th>
-                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>

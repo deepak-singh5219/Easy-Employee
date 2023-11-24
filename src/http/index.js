@@ -28,6 +28,7 @@ export const updateUser = (id,data) => api.patch(`/admin/user/${id}`,data);
 export const addTeam = data => api.post('/admin/team',data);
 export const updateTeam = (id,data) => api.post(`/admin/team/${id}`,data);
 export const getEmployee = data => api.get(`/admin/employee/${data}`);
+export const getLeader = data => api.get(`/admin/leader/${data}`);
 export const getFreeEmployees = () => api.get('/admin/employees/free');
 export const getTeam = data => api.get(`/admin/team/${data}`);
 export const removeMember = data => api.patch('/admin/team/member/remove',data);
@@ -46,6 +47,7 @@ export const viewAllSalaries = data => api.post('admin/view-all-salary',data);
 export const getMembers_Leader = () => api.get('/leader/team/members');
 export const getTeam_Leader = () => api.get('/leader/team/');
 
+
 // Employee
 export const getEmployeeTeam = data => api.get(`/employee/team/${data}`);
 export const getEmployeeTeamMembers = data => api.get(`/employee/team/${data}/members`);
@@ -58,8 +60,7 @@ export const viewEmployeeSalary = data => api.post('employee/view-salary',data);
 api.interceptors.response.use((response)=>{
     return response.data;
 },(error)=>{
-    console.log(error.response.data);
-    toast.error(error.response.data.message)
+    console.log(error);
     return error.response.data;
 })
 

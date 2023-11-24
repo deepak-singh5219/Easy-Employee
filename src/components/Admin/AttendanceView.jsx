@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getAttendance, getEmployees } from '../../http';
+import { getAttendance, getEmployees, getLeaders } from '../../http';
 import Loading from '../Loading';
-
 
 
 
@@ -49,15 +48,19 @@ const AttendanceView = () => {
     let empObj = {};
     const fetchData = async () => {
       const res = await getAttendance(obj);
+      
       const {data} = res;
+      console.log(data)
       setAttendance(data);
     } 
     const fetchEmployees = async () => {
-        const res = await getEmployees();
-        const {data} = res;
-        data.forEach(employee => empObj[employee.id] = [employee.name, employee.email]);
+        const emps = await getEmployees();
+        const leaders = await getLeaders();
+        emps.data.forEach(employee => empObj[employee.id] = [employee.name, employee.email]);
+        leaders.data.forEach(leader => empObj[leader.id] = [leader.name, leader.email]);
         setEmployeeMap(empObj);
-        setEmployees(data);
+        setEmployees([...emps.data,...leaders.data]);
+        
     }
     fetchEmployees();
     fetchData();

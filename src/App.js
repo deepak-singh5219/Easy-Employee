@@ -270,7 +270,7 @@ const EmployeeRoute = ({children,...rest}) =>
   const {user} = useSelector((state)=>state.authSlice);
   return (
     <Route {...rest} render={({location})=>{
-      return user && user.type==='Employee' ? (
+      return user && user.type==='Employee' || user.type==='Leader' ? (
         <>
           <SideBar/>
           <Navigation/>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getEmployees, viewAllSalaries } from '../../http';
+import { getEmployees, getLeaders, viewAllSalaries } from '../../http';
 import { useHistory } from "react-router-dom";
 import Loading from '../Loading';
 
@@ -21,11 +21,12 @@ const Salaries = () => {
     }
 
     const fetchEmployees = async () => {
-        const res = await getEmployees();
-        const {data} = res;
-        data.forEach(employee => empObj[employee.id] = [employee.name, employee.email]);
-        setEmployeeMap(empObj);
-        setEmployees(data);
+      const emps = await getEmployees();
+      const leaders = await getLeaders();
+      emps.data.forEach(employee => empObj[employee.id] = [employee.name, employee.email]);
+      leaders.data.forEach(leader => empObj[leader.id] = [leader.name, leader.email]);
+      setEmployeeMap(empObj);
+      setEmployees([...emps.data,...leaders.data]);
     }
 
     fetchData();

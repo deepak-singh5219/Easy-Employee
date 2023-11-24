@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { getEmployee, updateSalary, viewAllSalaries } from '../../http';
+import { getEmployee, getLeader, updateSalary, viewAllSalaries } from '../../http';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
 import HeaderSection from "../../components/HeaderSection";
@@ -24,13 +24,14 @@ const SalaryView = () => {
             }
             const res = await viewAllSalaries(obj);
             const empRes = await getEmployee(res.data[0].employeeID);
-            const {success,data} = empRes;
-            if(success) setEmployee(data);
+            const leaderRes = await getLeader(res.data[0].employeeID)
+            if(empRes.success) setEmployee(empRes.data);
+            if(leaderRes.success) setEmployee(leaderRes.data);
             setSalary(res.data[0]);
         }
         fetchData();
 
-    },[salary]);
+    },[]);
 
 
     const inputEvent = (e) =>

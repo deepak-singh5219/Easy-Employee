@@ -1,33 +1,64 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getCounts } from "../../http";
-import { setCount } from "../../store/main-slice";
-import CountsCard from './CountsCard';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const Leader = () =>
-{
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    (async ()=>
-    {
-      const res = await getCounts();
-      if(res.success)
-        dispatch(setCount(res.data));
-    })();
-  },[])
 
-  const {counts}  = useSelector((state)=>state.mainSlice);
-  const {admin,employee,leader,team} = counts;
+const Leader = () => {
+  const {user} = useSelector(state => state.authSlice);
+  console.log(user)
+  
+  return (
+    <div className="">
+    <section className="section">
+            <div className="card">
+              <div className="card-header d-flex justify-content-between">
+                <h4>Welcome {user?.name}</h4>
+              </div>
+            </div>
 
-    return(
-        <div className="row">
-        <CountsCard title='Total Member' icon='fa-user' count={employee}/>
-        <CountsCard title='Total Target' icon='fa-user' count={leader}/>
-        <CountsCard title='Total Complete' icon='fa-user' count={admin}/>
-        <CountsCard title='Total Remaining' icon='fa-user' count={team}/>
-        </div>
-    )
+            <div className="card">
+                  <div className="card-body row">
+                    <div className="col-md-3 ">
+                        <img className='img-fluid img-thumbnail' src={user.image} alt="" />
+                    </div>
+                    <div className="col-md-9">
+                       <table className='table'>
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{user.name}</td>
+                                </tr>
+                                <tr>
+                                    <th>Username</th>
+                                    <td>{user.username}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{user.email}</td>
+                                </tr>
+                                <tr>
+                                    <th>Usertype</th>
+                                    <td>{user.type}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{user.status}</td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile</th>
+                                    <td>{user.mobile}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{user.address}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>   
+    </section>
+  </div>
+  )
 }
 
 export default Leader;
