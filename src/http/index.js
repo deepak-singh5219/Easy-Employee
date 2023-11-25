@@ -58,7 +58,7 @@ export const viewLeaveApplications = data  => api.post('/employee/view-leave-app
 export const viewEmployeeSalary = data => api.post('employee/view-salary',data);
 
 api.interceptors.response.use((response)=>{
-    console.log(document.cookie);
+    console.log("All Cookies",document.cookie);
     return response.data;
 },(error)=>{
     console.log(error);
