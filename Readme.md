@@ -174,6 +174,31 @@ SMTP_REQUIRE_TLS=true
 SMTP_AUTH_USER=EMAIL
 SMTP_AUTH_PASS=PASSWORD
 ```
+### Admin object
+
+```
+{
+"_id":{"$oid":"64ca3376893ac9f719ea5c4d"},
+"name":"Admin",
+"email":"admin@admin.com",
+"username":"admin",
+"mobile":{"$numberDouble":"8840532578.0"},
+"password":"$2b$10$PENEG9O8u5.LZfZznEMQp.YomtW.Z7tFgW7yLPXq0XmU3.UcsFlhi",
+"type":"admin","status":"active",
+"image":"profile-1690973045739-766059788passport_photo.jpg",
+"address":"Lucknow",
+"createdAt":{"$date":{"$numberLong":"1690973046137"}},
+"updatedAt":{"$date":{"$numberLong":"1692765336607"}},
+"__v":{"$numberInt":"0"}
+}
+```
+
+### Admin Credentials
+
+```
+admin@admin.com
+12345678
+```
 
 At cleint application
 ```
